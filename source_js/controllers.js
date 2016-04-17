@@ -1,38 +1,19 @@
-var mp4Controllers = angular.module('mp4Controllers', []);
-
-mp4Controllers.controller('FirstController', ['$scope', 'CommonData'  , function($scope, CommonData) {
-  $scope.data = "";
-   $scope.displayText = ""
-
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
-
-  };
-
-}]);
-
-mp4Controllers.controller('SecondController', ['$scope', 'CommonData' , function($scope, CommonData) {
-  $scope.data = "";
-
-  $scope.getData = function(){
-    $scope.data = CommonData.getData();
-
-  };
-
-}]);
+var CHControllers = angular.module('CHControllers', []);
 
 
-mp4Controllers.controller('LlamaListController', ['$scope', '$http', 'Llamas', '$window' , function($scope, $http,  Llamas, $window) {
 
-  Llamas.get().success(function(data){
-    $scope.llamas = data;
-  });
+CHControllers.controller('DuesController', ['$scope', '$http', '$window', function($scope, $http, $window) {
+  $scope.day = "";
 
 
 }]);
 
-mp4Controllers.controller('SettingsController', ['$scope' , '$window' , function($scope, $window) {
+CHControllers.controller('TodosController', ['$scope', '$http', '$window', function($scope, $http, $window) {
+
+
+}]);
+
+CHControllers.controller('SettingsController', ['$scope' , '$window' , function($scope, $window) {
   $scope.url = $window.sessionStorage.baseurl;
 
   $scope.setUrl = function(){

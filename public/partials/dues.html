@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <div class="small-12 large-5 columns" id="news">
+            <div class="sub-title"> NEWS </div>
+            <ul class="accordion" data-accordion>
+              <li class="accordion-item is-active" data-accordion-item>
+                <a class="accordion-title">Accordion 1</a>
+                <div class="accordion-content" data-tab-content>
+                  I would start in the open state, due to using the `is-active` state class.
+                </div>
+              </li>
+              <li class="accordion-item" data-accordion-item>
+                <a class="accordion-title">Accordion 2</a>
+                <div class="accordion-content" data-tab-content>
+                  I would start in the close state.
+                </div>
+              </li>
+            </ul>
+        </div>
+        <div class="small-12 large-7 columns text-center" id="upcoming">
+            <div class="sub-title"> Upcoming Dues and Events <i class="fa fa-plus add"></i></div>
+            <div class="clear"><!-- --></div>
+            <ul>
+                <li>
+                    <a class="date"> 03/13/16 </a>
+                    <ul class="text-left">
+                        <li> <i class="fa fa-circle fa-lg" style="color:pink"></i>11:59pm CS411 MP1 due</li>
+                        <li> <i class="fa fa-circle fa-lg" ></i>20:00pm CS511 MP2 due</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <calendar class="small-12 columns" selected="day"></calendar>
+        <div class="small-12 text-center">Selected date: <b>{{day.format('dddd, MMMM Do YYYY')}}</b></div>
+    </div>
+</div>

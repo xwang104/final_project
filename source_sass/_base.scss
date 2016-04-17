@@ -1,1 +1,249 @@
 // Add any custom Sass & CSS here
+.no-js {
+  @include breakpoint(small only) {
+    .top-bar {
+      display: none;
+    }
+  }
+
+  @include breakpoint(medium) {
+    .title-bar {
+      display: none;
+    }
+  }
+}
+
+ul {
+    list-style-type: none;
+    background: #fff;
+    margin-left: 0;
+}
+.top-bar-left {
+    margin-left: 2em;
+}
+.top-bar-right {
+    margin-right: 2em;
+}
+
+#profile {
+    height: 350px;
+    @include breakpoint (small only) {
+        height: 220px;
+    }
+    margin-left: auto;
+    margin-right: auto;
+    max-width: initial;
+    background-image: url("../data/images/student_bg.jpg");
+    background-size: 100% auto;
+    background-position: center bottom;  
+    background-repeat: no-repeat;
+}
+
+.circle {
+    width: 180px;
+    height: 180px;
+    @include breakpoint (medium down) {
+        width: 130px;
+        height: 130px;
+    }
+    cursor: pointer;
+    padding-top: 50%;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    border: 5px solid #fff;
+}
+
+#profile-pic {
+    padding: 0;
+    margin-top: 5.5em;
+    background-image: url("../data/images/blank_profile.png");
+    background-position: center center;
+}
+
+#user-name {
+    color: #fff;
+    padding: 1em 1.5em;
+    font-size: 1.3em;
+    font-weight: 900;
+}
+
+.container {
+    background: $bg-gray;
+    padding: 3em 0;
+}
+
+.sub-title {
+    width: 100%;
+    color: #fff;
+    font-weight: 400;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    padding: 0.3em;
+    margin: .5em 0;
+    background: $p-blue;
+    text-align: center;
+}
+
+
+.accordion-title::before {
+    font-family: FontAwesome;
+    content: "\f0da";
+    font-size: 1em;
+    color: pink;
+    position: relative;
+    padding: 0 1em;
+}
+
+.is-active > .accordion-title::before {
+    content:"\f0d7";
+}
+
+
+
+.add {
+    float: right;
+    font-weight: bold;
+    margin-right: 1em;
+    margin-top: 0.3em;
+    cursor: pointer;
+}
+.clear {
+    clear:both;
+}
+
+.fa-circle{
+    padding: 0 1em 0 0.5em;
+}
+
+.fa-pencil, .fa-check-circle{
+    padding: 0 0 0 0.5em;
+    cursor: pointer;
+}
+
+#upcoming {
+    ul li {
+        .date {
+            display: block;
+            padding: 1rem;
+        }
+        ul {
+            margin: 0;
+            border-top: 1px solid $light-gray;
+            border-bottom: 1px solid $light-gray;
+            li {
+                padding: 0.6em;
+            }
+        }
+    }
+}
+
+calendar {
+    i {
+        margin-top: 0.2em;
+        padding: 0 0.5em;
+        cursor: pointer;
+    }
+    div.everyday {
+        background: #fff;
+        color: $p-blue;
+        height: 6em;
+        width: 13.5%;
+        margin-right: 0.91666%;
+        margin-top: 0.5em;
+        cursor: pointer;
+        &:last-child {
+            margin-right: 0;
+        }
+        &.today {
+            background: $s-blue;
+        }
+        &.different-month {
+            color: #C0C0C0;
+            cursor: default;
+        }
+        &.selected {
+            background: $p-blue;
+            color: white;
+        }
+    }
+}
+
+.weekday {
+    width: 13.5%;
+    padding: 0.1em;
+    margin-right: 0.91666%;
+}
+
+i.fa-chevron-circle-left {
+    float: left;
+}
+i.fa-chevron-circle-right {
+    float: right;
+}
+
+#todos {
+    li {
+        border-top: 0.4em solid $bg-gray;
+        border-bottom: 0.3em solid $bg-gray;
+        div {
+            padding: 1em;
+        }
+        span {
+            float: right;
+        }
+        .todo-content {
+            margin: 0 1em;
+            border-top: 2px solid $light-gray;
+        }
+    }
+}
+
+week {
+    i {
+        margin-top: 0.2em;
+        padding: 0 0.5em;
+        cursor: pointer;
+    }
+    .time-span {
+        padding: 0;
+    }
+    ul {
+        margin-top: 4em;
+        .time-slot {
+            margin: 0;
+            padding: 1.15em;
+        }
+    }
+    .oneday {
+        width: 13.5%;
+        margin-right: 0.91666%;
+        padding: 0;
+        margin-top: 1em;  
+        &:last-child {
+        margin-right: 0;
+    }  
+    }
+    .everytime {
+        background: #fff;
+        color: $p-blue;
+        height: 2.15em;
+        border-bottom: 1px dotted $p-blue;
+        cursor: pointer;      
+    }
+}
+
+
+footer {
+  background: $p-blue;
+  padding: 4em;
+  text-align: center;
+  div {
+    background: none;
+    display: block;
+    i {
+      cursor: pointer;
+      padding:0 10px 10px 10px;
+    }
+  }
+}
