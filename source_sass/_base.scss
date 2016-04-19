@@ -73,6 +73,12 @@ ul {
     padding: 3em 0;
 }
 
+.reveal {
+    padding: 0;
+    outline: 0;
+    border: 0;
+}
+
 .sub-title {
     width: 100%;
     color: #fff;
@@ -85,6 +91,26 @@ ul {
     text-align: center;
 }
 
+.modal-title {
+    @extend .sub-title;
+    padding: 1em;
+    margin: 0 0 2em 0;
+    i {
+        padding: 0 1em 0 0;
+    }
+}
+
+.required {
+    color: red;
+}
+
+.button {
+    background: $p-blue;
+    padding: 0.7em 2em;
+    &:hover {
+        background: $d-blue;
+    }
+}
 
 .accordion-title::before {
     font-family: FontAwesome;
@@ -113,7 +139,7 @@ ul {
 }
 
 .fa-circle{
-    padding: 0 1em 0 0.5em;
+    padding: 0 1em;
 }
 
 .fa-pencil, .fa-check-circle{
@@ -121,7 +147,7 @@ ul {
     cursor: pointer;
 }
 
-#upcoming {
+#upcoming, #day-detail, {
     ul li {
         .date {
             display: block;
@@ -132,9 +158,20 @@ ul {
             border-top: 1px solid $light-gray;
             border-bottom: 1px solid $light-gray;
             li {
+                span {
+                    width: 5em;
+                    border-right: 3px solid orange;
+                    padding:0.2em 1em;
+                }
                 padding: 0.6em;
             }
         }
+    }
+    p {
+        background: $p-blue;
+        color: #fff;
+        padding: 0.8em;
+        margin: 5em 0 0 0;
     }
 }
 
@@ -152,6 +189,10 @@ calendar {
         margin-right: 0.91666%;
         margin-top: 0.5em;
         cursor: pointer;
+        @include breakpoint(small only) {
+            text-align: center;
+            height: 4em;
+        }
         &:last-child {
             margin-right: 0;
         }
@@ -233,6 +274,53 @@ week {
     }
 }
 
+#class-list {
+    border-top: 6px solid $p-blue;
+    margin-top: 2em;
+    padding-top: 1em;
+    li {
+        border-bottom: 1px solid $light-gray;
+        padding-top: 1em;
+        p {
+            margin-left: 2.5em;
+            @include breakpoint(small only) {
+                margin-left: 0.5em;
+            }
+            padding-top: 0.3em;
+        }
+        button {
+            @include breakpoint(small only) {
+                padding: 0.7em 1em;
+            }
+        }
+    }
+    #add-class {
+        padding: 2em 0;
+    }
+}
+
+#class-time {
+    margin-top: 2em;
+    padding: 3em 0;
+    border-top: 6px solid $p-blue;
+    li {
+        p {
+            text-align: center;
+        }
+        padding: 1em;
+    }
+    .progress {
+        background: none;
+        height: 1.5rem;
+    }
+
+}
+#total-time {
+    background: #fff;
+    text-align: center;
+    font-size: 1.2em;
+    margin: 0;
+}
 
 footer {
   background: $p-blue;

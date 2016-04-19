@@ -18,14 +18,14 @@
             </ul>
         </div>
         <div class="small-12 large-7 columns text-center" id="upcoming">
-            <div class="sub-title"> Upcoming Dues and Events <i class="fa fa-plus add"></i></div>
+            <div class="sub-title"> Upcoming Dues and Events <i class="fa fa-plus add" data-open="add-task"></i></div>
             <div class="clear"><!-- --></div>
             <ul>
                 <li>
                     <a class="date"> 03/13/16 </a>
                     <ul class="text-left">
-                        <li> <i class="fa fa-circle fa-lg" style="color:pink"></i>11:59pm CS411 MP1 due</li>
-                        <li> <i class="fa fa-circle fa-lg" ></i>20:00pm CS511 MP2 due</li>
+                        <li><span> 11:59pm </span><i class="fa fa-circle fa-lg" style="color:pink"></i>CS411 MP1 due</li>
+                        <li> <span> 20:00pm </span> <i class="fa fa-circle fa-lg" ></i>CS511 MP2 due</li>
                     </ul>
                 </li>
             </ul>
@@ -36,3 +36,62 @@
         <div class="small-12 text-center">Selected date: <b>{{day.format('dddd, MMMM Do YYYY')}}</b></div>
     </div>
 </div>
+
+<div class="reveal" id="add-task" data-reveal>
+    <div class="modal-title"><i class="fa fa-calendar-plus-o fa-2x" aria-hidden="true"></i>Add Your Own Task</div>
+
+    <div>
+      <form data-abide novalidate name="userFrom">
+        <div class="row" style="height: 21em;">
+            <div class="small-8 small-centered columns">
+              <label> Choose Course <span class="required">*</span>
+                <select required
+                  ng-options="" 
+                  ng-model="data.selectedOption">
+                </select>
+              </label>
+              <label> Name <span class="required">*</span>
+                <input ng-model="name" type="text" required>
+              </label>
+              <label> Description
+                <input ng-model="description" type="text">
+              </label>
+              <label> Deadline <span class="required">*</span>
+                  <input ng-model="deadline" type="datetime-local" required>
+              </label>
+            </div>
+        </div>
+
+        <div class="row text-center" style="margin-bottom: 2em;">
+          <div class="small-8 small-centered columns">
+            <button type="submit" value="submit" class="button">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="reveal" id="day-detail" data-reveal>
+    <div class="modal-title"><i class="fa fa-list-ul fa-2x" aria-hidden="true"></i> Details of the Day</div>
+
+    <div class="row text-center">
+        <ul class="small-8 small-centered">
+            <li>
+                <a class="date"> 03/13/16 </a>
+                <ul class="text-left">
+                    <li><span> 11:59pm </span><i class="fa fa-circle fa-lg" style="color:pink"></i>CS411 MP1 due</li>
+                    <li> <span> 20:00pm </span> <i class="fa fa-circle fa-lg" ></i>CS511 MP2 due</li>
+                </ul>
+            </li>
+        </ul>
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <p> Laziness pays off now. Hard work pays off in the future </p>
+    </div>   
+
+</div>
+
