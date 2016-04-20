@@ -50,16 +50,11 @@
             </div>
         </div>
 
-        <div class="row" id="profile">
-            <div class="small-4 small-offset-1 columns">
-                <div class="circle hide-for-small-only" id="profile-pic"></div>
-                <div id="user-name" > User Name </div>
-            </div>
-        </div>
         <!-- original content goes in this container -->
         <div class="off-canvas-content" data-off-canvas-content>
-            <div ng-view></div>
-              <footer>
+            <div ui-view="header"></div>
+            <div ui-view="content"></div>
+            <footer>
                 <div>
                   <i class="fa fa-facebook-official fa-3x"></i>
                   <i class="fa fa-twitter-square fa-3x"></i>
@@ -70,7 +65,7 @@
                 <div>
                   Copyright © BEST team
                 </div>              
-              </footer>
+            </footer>
         </div>
 
         <!-- close wrapper, no more content after this -->
@@ -80,7 +75,9 @@
     <!-- Scripts -->
     <script src="./lib/jquery-2.1.3.min/index.js"></script>
     <script src="./foundation6_lib/js/foundation.min.js"></script>
+    <script src="./lib/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="./lib/moment/moment.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="./js/script.js"></script>
     <script>
     $(document).foundation();

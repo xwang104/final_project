@@ -25,18 +25,29 @@ ul {
     margin-right: 2em;
 }
 
-#profile {
+#profile, #course {
     height: 350px;
-    @include breakpoint (small only) {
-        height: 220px;
-    }
     margin-left: auto;
     margin-right: auto;
     max-width: initial;
-    background-image: url("../data/images/student_bg.jpg");
-    background-size: 100% auto;
     background-position: center bottom;  
     background-repeat: no-repeat;
+}
+
+#profile {
+    background-image: url("../data/images/student_bg.jpg");
+    background-size: 100% auto;
+    @include breakpoint (small only) {
+        height: 220px;
+    }
+}
+
+#course {
+    background-image: url("../data/images/course_bg.png");
+    background-size: 100% 100%;
+    @include breakpoint(medium down) {
+        background-size: auto 100%;
+    }
 }
 
 .circle {
@@ -68,6 +79,14 @@ ul {
     font-weight: 900;
 }
 
+#course-name {
+    color: #fff;
+    top: 290px;
+    position: absolute;
+    font-size: 1.8em;
+    font-weight: 800;
+}
+
 .container {
     background: $bg-gray;
     padding: 3em 0;
@@ -97,6 +116,21 @@ ul {
     margin: 0 0 2em 0;
     i {
         padding: 0 1em 0 0;
+    }
+}
+
+.c-title {
+    color: #fff;
+    background: $p-blue;
+    border-right: 5px solid $l-blue;
+    padding: 0.6em;
+    text-align: center;
+    margin: 0 0 2em -4em;
+    width: 20em;
+    font-weight: 500;
+    @include breakpoint(small only) {
+        margin-left: -2em;
+        width: 15em;
     }
 }
 
@@ -320,6 +354,52 @@ week {
     text-align: center;
     font-size: 1.2em;
     margin: 0;
+}
+
+#course-info, #course-tasks {
+    padding: 2em 4em;
+    @include breakpoint(small only) {
+        padding: 2em;
+    }
+    li {
+        padding: 0.5em 0;
+        border-bottom: 2px solid $light-gray;
+        .info-title {
+            font-weight: 900;
+            @include breakpoint(large) {
+                padding-left: 2em;
+            }
+            a {
+                font-weight: 500;
+                font-size: 0.9em;
+            }
+        }
+        .info {
+            border-left: 3px solid orange;
+            @include breakpoint(small only) {
+                margin-top: 1em;
+            }
+            span {
+                font-weight: 800;
+            }
+            i {
+                color: $p-blue;
+                cursor: pointer;
+                padding-right: 0.6em;
+            }
+        }
+    }
+}
+
+#course-tasks .info div {
+    padding: 0.2em;
+}
+
+#work-load {
+    padding: 2em 4em;
+    @include breakpoint(small only) {
+        padding: 2em;
+    }
 }
 
 footer {
