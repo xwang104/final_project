@@ -11,10 +11,10 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
                 templateUrl: 'partials/studentheader.html'
             },
             'content': {
-                templateUrl: 'partials/dues.html'
+                templateUrl: 'partials/dues.html',
+                controller: 'DuesController'
             }
         },
-      controller: 'DuesController'
     })
     .state('todos', {
       url: "/todos",
@@ -23,10 +23,10 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
                 templateUrl: 'partials/studentheader.html'
             },
             'content': {
-                templateUrl: 'partials/todos.html'
+                templateUrl: 'partials/todos.html',
+                controller: 'TodosController'
             }
         },
-      controller: 'TodosController'
     })
     .state('adddrop', {
       url: "/adddrop",
@@ -35,10 +35,10 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
                 templateUrl: 'partials/studentheader.html'
             },
             'content': {
-                templateUrl: 'partials/adddrop.html'
+                templateUrl: 'partials/adddrop.html',
+                controller: 'AddDropController'
             }
         },
-      controller: 'AddDropController'
     })
     .state('course', {
       url: "/course",
@@ -47,10 +47,11 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
                 templateUrl: 'partials/courseheader.html'
             },
             'content': {
-                templateUrl: 'partials/course.html'
+                templateUrl: 'partials/course.html',
+                controller: 'CourseController'
             }
         },
-      controller: 'TodosController'
+      
     });
 }]);
 

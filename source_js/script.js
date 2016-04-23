@@ -15,27 +15,21 @@ function highlightThis(event) {
     this.style.backgroundColor=backgroundColor;
 }
 
+$('#signup').click(function(){
+  $('#logo').animate({paddingTop:"2.1em"}, 200);
+  $('#slogan').hide();
+  $('#signup-form').show();
+});
 
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Task', 'Hours per Day'],
-      ['Work',     11],
-      ['Eat',      2],
-      ['Commute',  2],
-      ['Watch TV', 2],
-      ['Sleep',    7]
-    ]);
+$('#login').click(function() {
+  $('#logo').animate({paddingTop:"2.2em"}, 200);
+  $('#slogan').hide();
+  $('#login-form').show();
+});
 
-    var options = {
-      title: 'My Daily Activities'
-    };
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-    chart.draw(data, options);
-}
-
-$(window).resize(function(){
-  drawChart();
+$('.back').click(function() {
+  $('#logo').animate({paddingTop:"2.5em"});
+  $('#slogan').show();
+  $('#signup-form').hide();
+  $('#login-form').hide();
 });

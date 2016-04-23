@@ -141,7 +141,8 @@ ul {
 .button {
     background: $p-blue;
     padding: 0.7em 2em;
-    &:hover {
+    outline: 0;
+    &:hover, &:focus {
         background: $d-blue;
     }
 }
@@ -399,6 +400,97 @@ week {
     padding: 2em 4em;
     @include breakpoint(small only) {
         padding: 2em;
+    }
+}
+
+
+#introduction {
+    #logo {
+        padding: 2.5em 0 0.3em 0;
+        font-weight: 600;
+        font-size: 3.5rem;
+    }
+    h2 {
+        padding-bottom: 0.2em;
+        font-size: 2.2rem;
+    }
+    .button {
+        background: none;
+        border: 2px solid rgba(255,255,255,0.7);
+        font-size: 1.2rem;
+        &:hover {
+            background: $p-blue;
+            border: 2px solid $p-blue;
+        }
+    }
+    #signup {
+        margin-top: 0.6em;
+        @include breakpoint(medium up) {
+            float: right;
+            margin-right: 1em;
+        }
+    }
+    #login {
+        margin-top: 0.6em;
+        @include breakpoint(medium up) {
+            float: left;
+            margin-left: 1em;
+        }    
+    }
+    .back {
+        padding: 0 1em 1em 0;
+        font-size: 1.3em;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    label {
+        color: #fff;
+        font-size: 1.2em;
+    }
+    input {
+        background: none;
+        border: none;
+        box-shadow: none;
+        border-bottom: 2px solid rgba(255,255,255,0.7);
+        color: #fff;
+    }
+    height: 700px;
+    color: #fff;
+    background: $bg-gray;
+    background-image: url("../data/images/intro_bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: auto 100%;
+    @include breakpoint(large up) {
+        background-size: 100% auto;
+    }    
+}
+
+#features {
+    background: $bg-gray;
+    padding: 4em;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: initial;
+    color: $d-blue;
+    .benifit {
+        font-size: 1.3em;
+        border-bottom: 1px solid $dark-gray;
+    }
+    .medium-4 {
+        padding: 3em 0;
+        border-top: 1px dotted $dark-gray;
+        @include breakpoint (medium up) {
+            padding: 0 3em;
+            border: 0;
+            border-left: 1px dotted $dark-gray;
+        }
+    }
+    .function {
+        text-align: justify;
+    }
+    i {
+        margin-bottom: 0.3em;
     }
 }
 
