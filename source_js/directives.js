@@ -1,9 +1,10 @@
-var CHDirectives = angular.module('CHDirectives', []);
+var CHDirectives = angular.module('CHDirectives', ['CHServices', 'CHControllers']);
 
-CHDirectives.directive("calendar", function() {
+CHDirectives.directive("calendar", [function() {
     return {
         restrict: "E",
         templateUrl: "partials/calendar.html",
+        controller: 'DuesController',
         scope: {
             selected: "="
         },
@@ -68,7 +69,7 @@ CHDirectives.directive("calendar", function() {
         }
         return days;
     }
-});
+}]);
 
 
 CHDirectives.directive("week", function() {

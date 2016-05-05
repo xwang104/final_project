@@ -2,7 +2,7 @@ var CHControllers = angular.module('CHControllers', ['ngCookies']);
 
 
 
-CHControllers.controller('DuesController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', 'PersonalTasks', function($scope, $http, $window, StudentUsers, Courses, $cookieStore, PersonalTasks) {
+CHControllers.controller('DuesController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', function($scope, $http, $window, StudentUsers, Courses, $cookieStore) {
   $window.sessionStorage.baseurl = 'http://localhost:4000'
   var role = $cookieStore.get("role");
   var id = $cookieStore.get("id");
@@ -20,6 +20,38 @@ CHControllers.controller('DuesController', ['$scope', '$http', '$window', 'Stude
       console.log('The request for user was successful', statusCode);
       $scope.user = jsonData.data;
       //get upcomming dues
+        //get course tasks from each registered course
+      $scope.courseTasks = [];
+      for(var i = 0; i < $scope.user.courseList.length; i++) {
+        Courses.get($scope.user.courseList[i].courseid).success(function(jsonData, statusCode) {
+          console.log('Get course success', statusCode);
+          var course = jsonData.data;
+          $scope.courseTasks.concat(course.courseTaskList);
+        })
+      }
+      //combine all course tasks and personal tasks
+      $scope.allTasks = $scope.user.personalTaskList.concat($scope.courseTasks);
+      $scope.upcommingDuesDic = {};
+      $scope.upcommingDuesArr = [];
+      for(var i = 0; i < $scope.allTasks.length; i++) {
+        var datetime = $scope.allTasks[i].dueDate;
+        var date = datetime.split("T")[0];
+        //console.log(date);
+        if ($scope.upcommingDuesDic.hasOwnProperty(date)) {
+          $scope.upcommingDuesDic[date].push($scope.allTasks[i]);
+        }
+        else {
+          $scope.upcommingDuesDic[date] = [$scope.allTasks[i]];
+        }
+      }
+      //console.log(JSON.stringify($scope.upcommingDuesDic));
+      for (var key in $scope.upcommingDuesDic) {
+        $scope.upcommingDuesArr.push({"date": key, "dues": $scope.upcommingDuesDic[key]})
+      }
+      //console.log(JSON.stringify($scope.upcommingDuesArr));
+
+
+
       //user's course list as options
       $scope.data.availableOptions = $scope.user.courseList;
     })
@@ -28,7 +60,7 @@ CHControllers.controller('DuesController', ['$scope', '$http', '$window', 'Stude
       console.log('find student user failed', statusCode);
     });
   }
-  //$scope.day = "";
+  $scope.day = "";
 
   $scope.name = "";
   $scope.description = "";
@@ -124,7 +156,7 @@ CHControllers.controller('AddDropController', ['$scope', '$http', '$window', 'St
         $scope.user.courseList.push({"courseid": $scope.data.selectedOption._id, "courseName": $scope.data.selectedOption.name});
         var courseTasks = [];
         for(var i = 0; i < $scope.data.selectedOption.courseTaskList.length; i++) {
-          courseTasks.push({"courseid": $scope.data.selectedOption._id, "courseTaskid": $scope.data.selectedOption.courseTaskList[i], "timespent": 0})
+          courseTasks.push({"courseid": $scope.data.selectedOption._id, "courseTaskid": $scope.data.selectedOption.courseTaskList[i]._id, "timespent": 0})
         }
         $scope.user.courseTaskList.concat(courseTasks);
         StudentUsers.put($scope.user).success(function(jsonData, statusCode) {
@@ -176,7 +208,6 @@ CHControllers.controller('AddDropController', ['$scope', '$http', '$window', 'St
 
 }]);
 
-
 CHControllers.controller('CourseController', ['$scope', '$http', '$window', function($scope, $http, $window) {
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
@@ -188,6 +219,32 @@ CHControllers.controller('CourseController', ['$scope', '$http', '$window', func
           ['Commute',  2],
           ['Watch TV', 2],
           ['Sleep',    7]
+        ]);
+
+        var options = {
+          title: 'My Daily Activities'
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+    }
+
+    $(window).resize(function(){
+      drawChart();
+    });
+
+}]);
+
+
+CHControllers.controller('InstructorController', ['$scope', '$http', '$window', function($scope, $http, $window) {
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Tasks', 'Total Time Spent'],
+          ['MP1',     11],
+          ['MP2',      6],
+          ['MP3',     20],
         ]);
 
         var options = {

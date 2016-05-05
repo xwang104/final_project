@@ -1,0 +1,160 @@
+<div class="container">
+    <div class="row">
+        <ul class="small-11 medium-10 small-centered columns" id="course-info">
+            <div class="c-title">Course Infomation</div>
+            <i class="fa fa-edit add" data-open="edit-course"></i>
+            <li class="row clear">
+                <div class="small-12 medium-3 columns info-title">Instructor</div>
+                <div class="small-12 medium-9 columns info">AAAAA BBBBBB</div>
+            </li>
+            <li class="row">
+                <div class="small-12 medium-3 columns info-title">Homepage</div>
+                <div class="small-12 medium-9 columns info">https://chara.cs.illinois.edu/sites/cs410/</div>
+            </li>
+            <li class="row">
+                <div class="small-12 medium-3 columns info-title">Description</div>
+                <div class="small-12 medium-9 columns info">Recent years have seen a dramatic growth of natural language text data, including web pages, news articles, scientific literature, emails, enterprise documents, and social media such as blog articles, forum posts, product reviews, and tweets. Text data are unique in that they are usually generated directly by humans rather than a computer system or sensors, and are thus especially valuable for discovering knowledge about people’s opinions and preferences, in addition to many other kinds of knowledge that we encode in text.</div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <ul class="small-11 medium-10 small-centered columns" id="course-tasks">
+            <div class="c-title">Course Tasks</div>
+            <i class="fa fa-plus add" data-open="edit-task"></i>
+            <li>
+                <div class="row clear">
+                    <div class="small-12 medium-3 columns info-title">
+                        <div>MP1</div> 
+                        <div><a>Getting Familiar with Text</a></div>
+                        <i class="fa fa-trash-o" data-open="delete-task"></i>
+                        <i class="fa fa-edit" data-open="edit-task"></i>
+                    </div>
+                    <div class="small-12 medium-9 columns info">
+                        <div><span>Due: </span>21 April 2016 at 8:00pm CT.
+                        </div>
+                        <div><span>Description: </span>This assignment explores text categorization with MeTA.
+                        </div>
+                        <div><i class="fa fa-chevron-right" aria-hidden="true"></i> More details</div>
+                    </div>
+                </div>               
+            </li>
+            <li>
+                <div class="row">
+                    <div class="small-12 medium-3 columns info-title">
+                        <div>MP2</div> 
+                        <div><a>Search Engines</a></div>
+                        <i class="fa fa-trash-o" data-open="delete-task"></i>
+                        <i class="fa fa-edit" data-open="edit-task"></i>
+                    </div>
+                    <div class="small-12 medium-9 columns info">
+                        <div><span>Due: </span>21 April 2016 at 8:00pm CT.
+                        </div>
+                        <div><span>Description: </span>This assignment explores text categorization with MeTA.
+                        </div>
+                        <div><i class="fa fa-chevron-right" aria-hidden="true"></i> More details</div>
+                    </div>
+                </div>               
+            </li>
+            <li>
+                <div class="row">
+                    <div class="small-12 medium-3 columns info-title">
+                        <div>MP3</div>
+                        <div><a>MapReduce and MongoDB</a></div>
+                        <i class="fa fa-trash-o" data-open="delete-task"></i>
+                        <i class="fa fa-edit" data-open="edit-task"></i>
+                    </div>
+                    <div class="small-12 medium-9 columns info">
+                        <div><span>Due: </span>21 April 2016 at 8:00pm CT.
+                        </div>
+                        <div><span>Description: </span>This assignment explores text categorization with MeTA.
+                        </div>
+                        <div><i class="fa fa-chevron-right" aria-hidden="true"></i> More details</div>
+                    </div>
+                </div>               
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <ul class="small-11 medium-10 small-centered columns" id="work-load" style="overflow: hidden;padding-right:0">
+            <div class="c-title">Work Load</div>
+            <div id="piechart" style="width:120%; height: 600px;margin:0 auto"></div>
+        </ul>
+    </div>
+
+</div>
+
+<div class="reveal" id="edit-course" data-reveal>
+  <div class="modal-title"><i class="fa fa-edit fa-2x" aria-hidden="true"></i>Edit Course Information</div>
+
+  <div>
+    <form data-abide novalidate name="courseFrom">
+      <div class="row" style="height: 23em;">
+        <div class="small-8 small-centered columns">
+          <label> Instructor <span class="required">*</span>
+            <input ng-model="instructor" type="text"  required>
+          </label>
+          <label> Homepage
+            <input ng-model="homepage" type="text">
+          </label>
+          <label> Description
+            <textarea ng-model="description" type="text" rows="4" cols="80">
+            </textarea>
+          </label>
+        </div>
+      </div>
+
+      <div class="row text-center" style="margin-bottom: 2em;">
+        <div class="small-8 small-centered columns">
+          <button type="submit" value="submit" class="button" ng-click="editCourse(courseFrom.$valid)">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="reveal" id="edit-task" data-reveal>
+  <div class="modal-title"><i class="fa fa-edit fa-2x" aria-hidden="true"></i>Edit Task Information</div>
+
+  <div>
+    <form data-abide novalidate name="courseFrom">
+      <div class="row" style="height: 23em;">
+        <div class="small-8 small-centered columns">
+          <label> Name <span class="required">*</span>
+            <input ng-model="name" type="text"  required>
+          </label>
+          <label> Description
+            <textarea ng-model="description" type="text" rows="4" cols="80">
+            </textarea>
+          </label>
+          <label> Deadline <span class="required">*</span>
+            <input ng-model="deadline" type="datetime-local" required>
+          </label>
+        </div>
+      </div>
+
+      <div class="row text-center" style="margin-bottom: 2em;">
+        <div class="small-8 small-centered columns">
+          <button type="submit" value="submit" class="button" ng-click="editCourse(courseFrom.$valid)">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+
+
+<div class="reveal" id="delete-task" data-reveal>
+  <div class="modal-title"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>Delete Task</div>
+
+  <button class="button">Confirm</button>
+  <button class="button">Cancel</button>
+</div>
+

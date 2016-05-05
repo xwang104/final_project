@@ -75,6 +75,14 @@ ul {
     }
 }
 
+#instructor {
+    background-image: url("../data/images/instructor_bg.jpg");
+    background-size: 100% 100%;
+    @include breakpoint(medium down) {
+        background-size: auto 100%;
+    }
+}
+
 .circle {
     width: 180px;
     height: 180px;
@@ -145,6 +153,7 @@ ul {
 }
 
 .c-title {
+    float: left;
     color: #fff;
     background: $p-blue;
     border-right: 5px solid $l-blue;
@@ -217,11 +226,13 @@ ul {
             margin: 0;
             border-top: 1px solid $light-gray;
             border-bottom: 1px solid $light-gray;
+            background:none;
             li {
+                background:none;
                 span {
                     width: 5em;
                     border-right: 3px solid orange;
-                    padding:0.2em 1em;
+                    padding:0.4em;
                 }
                 padding: 0.6em;
             }
