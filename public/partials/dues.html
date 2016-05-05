@@ -21,11 +21,11 @@
             <div class="sub-title"> Upcoming Dues and Events <i class="fa fa-plus add" data-open="add-task"></i></div>
             <div class="clear"><!-- --></div>
             <ul>
-                <li>
-                    <a class="date"> 03/13/16 </a>
+                <li ng-repeat="duesPerDay in upcommingDuesArr">
+                    <a class="date">{{duesPerDay.date}} </a>
                     <ul class="text-left">
-                        <li><span> 11:59pm </span><i class="fa fa-circle fa-lg" style="color:pink"></i>CS411 MP1 due</li>
-                        <li> <span> 20:00pm </span> <i class="fa fa-circle fa-lg" ></i>CS511 MP2 due</li>
+                        <li ng-repeat="due in duesPerDay.dues"><span>{{due.dueDate.substring(11, 19)}} </span><i class="fa fa-circle fa-lg" style="color:pink"></i>{{due.courseName + " " + due.name}} due</li>
+                        <!--li> <span> 20:00pm </span> <i class="fa fa-circle fa-lg" ></i>CS511 MP2 due</li-->
                     </ul>
                 </li>
             </ul>
@@ -80,10 +80,18 @@
     <div class="row text-center">
         <ul class="small-8 small-centered">
             <li>
-                <a class="date"> 03/13/16 </a>
+                <a class="date">{{day.format('dddd, MMMM Do YYYY')}}</a>
                 <ul class="text-left">
-                    <li><span> 11:59pm </span><i class="fa fa-circle fa-lg" style="color:pink"></i>CS411 MP1 due</li>
-                    <li> <span> 20:00pm </span> <i class="fa fa-circle fa-lg" ></i>CS511 MP2 due</li>
+                    <li class="row" ng-repeat="due in upcommingDuesDic[day.format().substring(0, 10)]">
+                        <span class="small-2 columns">{{due.dueDate.substring(11, 19)}} </span>
+                        <div class="small-1 columns">
+                            <i class="fa fa-circle fa-lg" style="color:pink"></i>
+                        </div>
+                        <div class="small-8 columns">
+                            <div>{{due.courseName}}</div>
+                            <div>Assgiment: {{due.name}}</div>
+                        </div>
+                    </li>
                 </ul>
             </li>
         </ul>

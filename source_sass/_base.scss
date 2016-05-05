@@ -217,11 +217,13 @@ ul {
             margin: 0;
             border-top: 1px solid $light-gray;
             border-bottom: 1px solid $light-gray;
+            background:none;
             li {
+                background:none;
                 span {
                     width: 5em;
                     border-right: 3px solid orange;
-                    padding:0.2em 1em;
+                    padding:0.4em;
                 }
                 padding: 0.6em;
             }
