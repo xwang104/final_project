@@ -18,11 +18,36 @@ ul {
     background: #fff;
     margin-left: 0;
 }
+
+.top-bar {
+    background: #000;
+    padding-top: 0.8rem;
+}
+
 .top-bar-left {
     margin-left: 2em;
+    .title-bar-title {
+        color: #fff;
+        font-size: 1.5em;
+        text-shadow:5px 5px 5px #0a0a0a;
+    }
 }
 .top-bar-right {
     margin-right: 2em;
+    .menu {
+        background: none;
+        .bars {
+            color: #fff;
+            font-size: 2em;
+        }
+    }
+}
+
+#offCanvasRight {
+    color: #000;
+}
+#menulist {
+    
 }
 
 #profile, #course {
@@ -405,6 +430,7 @@ week {
 
 
 #introduction {
+    text-shadow:5px 5px 5px #0a0a0a;
     #logo {
         padding: 2.5em 0 0.3em 0;
         font-weight: 600;
@@ -418,6 +444,8 @@ week {
         background: none;
         border: 2px solid rgba(255,255,255,0.7);
         font-size: 1.2rem;
+        font-weight: 500;
+        text-shadow:2px 2px 2px #0a0a0a;
         &:hover {
             background: $p-blue;
             border: 2px solid $p-blue;
@@ -438,14 +466,21 @@ week {
         }    
     }
     .back {
-        padding: 0 1em 1em 0;
+        padding: 0 2em 1em 0;
         font-size: 1.3em;
         font-weight: 500;
         cursor: pointer;
     }
+    .ins {
+        margin-left: 3em;
+        @include breakpoint(medium down) {
+            margin-left: 2em;
+        }
+    }
     label {
         color: #fff;
         font-size: 1.2em;
+        font-weight: 500;
     }
     input {
         background: none;
@@ -453,6 +488,8 @@ week {
         box-shadow: none;
         border-bottom: 2px solid rgba(255,255,255,0.7);
         color: #fff;
+        font-weight: 700;
+        letter-spacing: 1px;
     }
     height: 700px;
     color: #fff;

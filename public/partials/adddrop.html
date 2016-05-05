@@ -7,40 +7,24 @@
     <div class="row">
         <div class="small-12 medium-10 large-8 small-centered columns">
             <ul id="class-list" style="overflow: hidden">
-                <li class="row">
-                    <div class="small-7 columns">
-                        <p><i class="fa fa-circle fa-lg" style="color:pink"></i>CS410 Data Base</p>
-                    </div>
-                    <div class="small-3 columns">
-                        <button type="submit" value="submit" class="button">Drop</button>
-                    </div>
-                </li>
-                <li class="row">
-                    <div class="small-7 columns">
-                        <p><i class="fa fa-circle fa-lg" style="color:lightblue"></i>CS411 Data Base</p>
-                    </div>
-                    <div class="small-3 columns">
-                        <button type="submit" value="submit" class="button">Drop</button>
-                    </div>
-                </li>
-                <li class="row">
-                    <div class="small-7 columns">
-                        <p><i class="fa fa-circle fa-lg"></i>CS412 Data Base</p>
-                    </div>
-                    <div class="small-3 columns">
-                        <button type="submit" value="submit" class="button">Drop</button>
-                    </div>
-                </li>
                 <li class="text-center" id="add-class">
                     <form>
                         <label> Search for Classes<br>
                             <select style="width: 80%" required
-                              ng-options="" 
+                              ng-options="option.name for option in data.availableOptions track by option._id" 
                               ng-model="data.selectedOption">
                             </select>
                         </label>
                     </form>
-                    <button type="submit" value="submit" class="button">Add</button>
+                    <button type="submit" value="submit" class="button" ng-click="addCourse()">Add</button>
+                </li>
+                <li class="row" ng-repeat="course in user.courseList">
+                    <div class="small-7 columns">
+                        <p><i class="fa fa-circle fa-lg" style="color:pink"></i>{{course.courseName}}</p>
+                    </div>
+                    <div class="small-3 columns">
+                        <button type="submit" value="submit" class="button" ng-click="dropCourse(course.courseid)">Drop</button>
+                    </div>
                 </li>
             </ul>
         </div>

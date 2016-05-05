@@ -41,12 +41,12 @@
     <div class="modal-title"><i class="fa fa-calendar-plus-o fa-2x" aria-hidden="true"></i>Add Your Own Task</div>
 
     <div>
-      <form data-abide novalidate name="userFrom">
+      <form data-abide novalidate name="ptaskFrom">
         <div class="row" style="height: 21em;">
             <div class="small-8 small-centered columns">
               <label> Choose Course <span class="required">*</span>
                 <select required
-                  ng-options="" 
+                  ng-options="option.courseName for option in data.availableOptions track by option.courseid"
                   ng-model="data.selectedOption">
                 </select>
               </label>
@@ -64,7 +64,7 @@
 
         <div class="row text-center" style="margin-bottom: 2em;">
           <div class="small-8 small-centered columns">
-            <button type="submit" value="submit" class="button">Submit</button>
+            <button type="submit" value="submit" class="button" ng-click="addPTask(ptaskFrom.$valid)">Submit</button>
           </div>
         </div>
       </form>

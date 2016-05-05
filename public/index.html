@@ -31,10 +31,11 @@
 
         <!-- off-canvas right menu -->
         <div class="off-canvas position-right" id="offCanvasRight" data-off-canvas data-position="right">
-            <ul class="vertical dropdown menu" data-dropdown-menu>
-                <li><a href="right_item_1">Right item 1</a></li>
-                <li><a href="right_item_2">Right item 2</a></li>
-                <li><a href="right_item_3">Right item 3</a></li>
+            <ul class="vertical dropdown menu" data-dropdown-menu id="menulist">
+                <li><a href="#/dues">ASSIGNMENTS</a></li>
+                <li><a href="#/todos">TO DOs</a></li>
+                <li><a href="#/adddrop">ADD/DROP</a></li>
+                <li><a>SIGN OUT</a></li>
             </ul>
         </div>
 
@@ -45,7 +46,7 @@
             </div>
             <div class="top-bar-right">
                 <ul class="menu">
-                    <button class="menu-icon" type="button" data-open="offCanvasRight"></button>
+                    <button class="bars" type="button" data-open="offCanvasRight"><i class="fa fa-bars" aria-hidden="true"></i></button>
                 </ul>
             </div>
         </div>
@@ -79,6 +80,7 @@
     <script src="./lib/moment/moment.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="./js/script.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.20/angular-cookies.js"></script>
     <script>
     $(document).foundation();
     </script>

@@ -55,10 +55,20 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
     });
 }]);
 
-
-
 app.run(function($rootScope) {
     $rootScope.$on('$viewContentLoaded', function () {
         $(document).foundation();
     });
 });
+
+
+var app_login = angular.module('login', ['LSControllers', 'LSServices']);
+app_login.run(function($rootScope) {
+    $rootScope.$on('$viewContentLoaded', function () {
+        $(document).foundation();
+    });
+});
+
+
+
+

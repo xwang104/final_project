@@ -16,7 +16,7 @@ function highlightThis(event) {
 }
 
 $('#signup').click(function(){
-  $('#logo').animate({paddingTop:"2.1em"}, 200);
+  $('#logo').animate({paddingTop:"1.8em"}, 200);
   $('#slogan').hide();
   $('#signup-form').show();
 });
