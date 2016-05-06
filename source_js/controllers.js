@@ -283,6 +283,7 @@ CHControllers.controller('InstructorController',
                       "courseTaskList": [],
                       "studentList": []}
 
+        alert('adding course');
         Courses.post(course).success(function(jsonData, statusCode) {
             console.log('course successfully added');
             $scope.courseList.push(course);
@@ -348,6 +349,9 @@ CHControllers.controller('InstructorController',
             alert("update task failed");
           })
       }
+    }
+
+    $scope.deleteCourse = function(courseId) {
     }
 
     $scope.deleteTask = function(taskIndex) {
