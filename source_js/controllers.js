@@ -3,7 +3,7 @@ var CHControllers = angular.module('CHControllers', ['ngCookies']);
 var url = 'http://tarekc53.cs.illinois.edu:4000'
  
 
-CHControllers.controller('DuesController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', function($scope, $http, $window, StudentUsers, Courses, $cookieStore) {
+CHControllers.controller('DuesController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', '$state', function($scope, $http, $window, StudentUsers, Courses, $cookieStore, $state) {
   $window.sessionStorage.baseurl = url;
   var role = $cookieStore.get("role");
   var id = $cookieStore.get("id");
@@ -119,7 +119,7 @@ CHControllers.controller('DuesController', ['$scope', '$http', '$window', 'Stude
 
 }]);
 
-CHControllers.controller('TodosController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', function($scope, $http, $window, StudentUsers, Courses, $cookieStore) {
+CHControllers.controller('TodosController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', '$state', function($scope, $http, $window, StudentUsers, Courses, $cookieStore, $state) {
   $window.sessionStorage.baseurl = 'http://localhost:4000'
   var role = $cookieStore.get("role");
   var id = $cookieStore.get("id");
@@ -141,7 +141,6 @@ CHControllers.controller('TodosController', ['$scope', '$http', '$window', 'Stud
       }
     }
   }
-
 
   $scope.data_1 = {
     selectedOption: {}
@@ -351,7 +350,7 @@ CHControllers.controller('TodosController', ['$scope', '$http', '$window', 'Stud
 }]);
 
 
-CHControllers.controller('AddDropController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', function($scope, $http, $window, StudentUsers, Courses, $cookieStore) {
+CHControllers.controller('AddDropController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', '$state', function($scope, $http, $window, StudentUsers, Courses, $cookieStore, $state) {
   $window.sessionStorage.baseurl = url;
   var role = $cookieStore.get("role");
   var id = $cookieStore.get("id");
@@ -376,7 +375,8 @@ CHControllers.controller('AddDropController', ['$scope', '$http', '$window', 'St
       alert("Can not find User!");
       console.log('find student user failed', statusCode);
     });
-  }
+  }  
+
 
   //get all course list as options
   $scope.data = {
@@ -478,9 +478,9 @@ CHControllers.controller('AddDropController', ['$scope', '$http', '$window', 'St
 
 CHControllers.controller('InstructorController', 
   ['$scope', '$http', '$window', '$cookieStore', 
-   'InstructorUsers', 'Courses',
+   'InstructorUsers', 'Courses', '$state',
   function($scope, $http, $window, $cookieStore, 
-           InstructorUsers, Courses) {
+           InstructorUsers, Courses, $state) {
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
     $scope.totalTime = 0;
@@ -531,6 +531,15 @@ CHControllers.controller('InstructorController',
     }
 
     updateCourses(instructorId);
+    $scope.signout = function() {
+      $cookieStore.remove('role');
+      $cookieStore.remove('id');
+      $cookieStore.remove('name');
+      $cookieStore.remove('couseList');
+      $state.go('login');
+    }
+
+
 
     $scope.coursePanel = 'add';
 
@@ -652,8 +661,8 @@ CHControllers.controller('InstructorController',
 
 
 CHControllers.controller('CourseController', 
-  ['$scope', '$http', '$window','$stateParams', 'Courses', 
-  function($scope, $http, $window, $stateParams, Courses) {
+  ['$scope', '$http', '$window','$stateParams', 'Courses', '$state',
+  function($scope, $http, $window, $stateParams, Courses, $state) {
     $window.sessionStorage.baseurl = url;
     var id = $stateParams.id;
 
@@ -664,6 +673,16 @@ CHControllers.controller('CourseController',
       .error(function(jsonData, statusCode) {
         alert("get course error: " + id);
       })
+
+    $scope.signout = function() {
+      $cookieStore.remove('role');
+      $cookieStore.remove('id');
+      $cookieStore.remove('name');
+      $cookieStore.remove('couseList');
+      $state.go('login');
+    }
+
+
 
 
     google.charts.load('current', {'packages':['corechart']});
@@ -692,8 +711,7 @@ CHControllers.controller('CourseController',
 
 }]);
 
-
-CHControllers.controller('SettingsController', ['$scope' , '$window' , function($scope, $window) {
+CHControllers.controller('SettingsController', ['$scope' , '$window', function($scope, $window) {
   $scope.url = $window.sessionStorage.baseurl;
 
   $scope.setUrl = function(){
@@ -701,6 +719,24 @@ CHControllers.controller('SettingsController', ['$scope' , '$window' , function(
     $scope.displayText = "URL set";
 
   };
+
+}]);
+
+
+
+CHControllers.controller('SignoutController', 
+  ['$scope' , '$window' , '$state', '$cookieStore', 
+  function($scope, $window, $state, $cookieStore) {
+  $scope.url = $window.sessionStorage.baseurl;
+
+    $scope.signout = function() {
+      $cookieStore.remove('role');
+      $cookieStore.remove('id');
+      $cookieStore.remove('name');
+      $cookieStore.remove('couseList');
+      $state.go('login');
+    }
+
 
 }]);
 

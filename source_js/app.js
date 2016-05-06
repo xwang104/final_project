@@ -25,7 +25,8 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
       url: "/dues",
         views: {
             'menu': {
-                templateUrl: 'partials/studentMenu.html'
+                templateUrl: 'partials/studentMenu.html',
+                controller: 'SignoutController'
             },
             'header': {
                 templateUrl: 'partials/studentheader.html'
@@ -55,7 +56,8 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
       url: "/adddrop",
         views: {
             'menu': {
-                templateUrl: 'partials/studentMenu.html'
+                templateUrl: 'partials/studentMenu.html',
+                controller: 'SignoutController'
             },
             'header': {
                 templateUrl: 'partials/studentheader.html'
@@ -70,7 +72,8 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
       url: "/detail",
         views: {
             'menu': {
-                templateUrl: 'partials/studentMenu.html'
+                templateUrl: 'partials/studentMenu.html',
+                controller: 'SignoutController'
             },
             'header': {
                 templateUrl: 'partials/courseheader.html',
