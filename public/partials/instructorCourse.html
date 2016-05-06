@@ -21,14 +21,14 @@
     <div class="row" >
         <ul class="small-11 medium-10 small-centered columns" style="min-height:8em" id="course-tasks">
             <div class="c-title">Course Tasks</div>
-            <i class="fa fa-plus add" data-open="edit-task"></i>
+            <i class="fa fa-plus add" ng-click="taskPanel='add'" data-open="task-panel"></i>
             <li ng-repeat="task in currentCourse.courseTaskList">
                  <div class="row clear">
                     <div class="small-12 medium-3 columns info-title">
                         <div>MP{{$index + 1}}</div> 
                         <div><a>{{task.name}}</a></div>
-                        <i class="fa fa-trash-o" data-open="delete-task"></i>
-                        <i class="fa fa-edit" data-open="edit-task"></i>
+                        <i class="fa fa-trash-o" ng-click="deleteTask($index)"></i>
+                        <i class="fa fa-edit" ng-click="openEditTask($index)" data-open="task-panel"></i>
                     </div>
                     <div class="small-12 medium-9 columns info">
                         <div><span>Due: </span>{{task.dueDate}}
@@ -45,7 +45,11 @@
     <div class="row">
         <ul class="small-11 medium-10 small-centered columns" id="work-load" style="overflow: hidden;padding-right:0">
             <div class="c-title">Work Load</div>
-            <div id="piechart" style="width:120%; height: 600px;margin:0 auto"></div>
+            <div ng-if="totalTime>0" id="piechart" style="width:120%; height: 600px;margin:0 auto"></div>
+            <div ng-if="totalTime<=0" style="margin-top:5em">
+              <i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i>
+              <span style="font-size:1.5em">Not Enough Data</span>
+            </div>
         </ul>
     </div>
 
@@ -91,8 +95,13 @@
   </button>
 </div>
 
-<div class="reveal" id="edit-task" data-reveal>
-  <div class="modal-title"><i class="fa fa-edit fa-2x" aria-hidden="true"></i>Edit Task Information</div>
+<div class="reveal" id="task-panel" data-reveal>
+  <div ng-if="taskPanel=='edit'" class="modal-title">
+    <i class="fa fa-edit fa-2x" aria-hidden="true"></i>Editing MP{{currentTaskIndex + 1}}
+  </div>
+  <div ng-if="taskPanel=='add'"  class="modal-title">
+    <i class="fa fa-edit fa-2x" aria-hidden="true"></i>Add MP
+  </div>
 
   <div>
     <form data-abide novalidate name="taskFrom">
@@ -113,7 +122,12 @@
 
       <div class="row text-center" style="margin-bottom: 2em;">
         <div class="small-8 small-centered columns">
-          <button type="submit" value="submit" class="button" ng-click="editCourse(courseFrom.$valid)">Submit</button>
+          <button ng-if="taskPanel=='edit'" type="submit" value="submit" class="button" ng-click="editTask(currentTaskIndex, taskFrom.$valid)">
+            Submit
+          </button>
+          <button ng-if="taskPanel=='add'"  type="submit" value="submit" class="button" ng-click="addTask(taskFrom.$valid)">
+            Submit
+          </button>
         </div>
       </div>
     </form>
@@ -124,11 +138,4 @@
 </div>
 
 
-
-<div class="reveal" id="delete-task" data-reveal>
-  <div class="modal-title"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>Delete Task</div>
-
-  <button class="button">Confirm</button>
-  <button class="button">Cancel</button>
-</div>
 

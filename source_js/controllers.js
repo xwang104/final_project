@@ -1,6 +1,6 @@
 var CHControllers = angular.module('CHControllers', ['ngCookies']);
 
-var url = 'http://localhost:4000'
+var url = 'http://tarekc53.cs.illinois.edu:4000'
 
 
 CHControllers.controller('DuesController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', function($scope, $http, $window, StudentUsers, Courses, $cookieStore) {
@@ -216,22 +216,26 @@ CHControllers.controller('InstructorController',
            InstructorUsers, Courses) {
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
+    $scope.totalTime = 0;
     function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
+        
+        var items = [['Task', 'Average Hours Spent']];
+        var cnt = 1;
+        for (var task in $scope.currentCourse.courseTaskList) {
+          items.push(['MP' + cnt, task.averageTimeSpent]);
+          cnt = cnt + 1;
+          $scope.totalTime += task.averageTimeSpent;
+        }
+        if ($scope.totalTime > 0){
+          var data = google.visualization.arrayToDataTable(items);
 
-        var options = {
-          title: 'My Daily Activities'
-        };
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+          var options = {
+            title: 'MP Efforts'
+          };
+          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-        chart.draw(data, options);
+          chart.draw(data, options);
+        }
     }
 
 
@@ -241,12 +245,11 @@ CHControllers.controller('InstructorController',
     });
 
     var instructorId = $cookieStore.get('id');
-    var instructorName = $cookieStore.get('name');
+    $scope.instructorName = $cookieStore.get('name');
     Courses.get({where: {"instructorid": instructorId}})
       .success(function(jsonData, statusCode) {
-        alert(JSON.stringify(jsonData));
         $scope.courseList = jsonData.data;
-        
+        //alert(JSON.stringify(jsonData.data)); 
         if ($scope.courseList.length > 0) {
           $scope.currentCourse = $scope.courseList[0];
         }
@@ -256,6 +259,11 @@ CHControllers.controller('InstructorController',
       }) 
 
     $scope.coursePanel = 'add';
+
+    $scope.openEditTask = function(taskIndex) {
+      $scope.taskPanel='edit';
+      $scope.currentTaskIndex=taskIndex;
+    }
 
     $scope.openAddCourse = function() {
       $scope.coursePanel = 'add';
@@ -271,7 +279,7 @@ CHControllers.controller('InstructorController',
                       "homepage": $scope.courseHomepage,
                       "description": $scope.courseDescription,
                       "instructorid": instructorId,
-                      "instructorName": instructorName,
+                      "instructorName": $scope.instructorName,
                       "courseTaskList": [],
                       "studentList": []}
 
@@ -295,7 +303,7 @@ CHControllers.controller('InstructorController',
 
         Courses.put($scope.currentCourse)
           .success(function(jsonData, statusCose) {
-            alert("course updated");  
+            //alert("course updated");  
           })
           .error(function(jsonData, statusCode) {
             alert("updating course failed");
@@ -304,6 +312,7 @@ CHControllers.controller('InstructorController',
     }
 
     $scope.addTask = function(formValid) {
+      alert('addtask!! ' + formValid);
       if (formValid) {
         var task = {'courseid': $scope.currentCourse._id,
                     'courseName': $scope.currentCourse.name,
@@ -311,13 +320,46 @@ CHControllers.controller('InstructorController',
                     'description': $scope.taskDescription,
                     'dueDate': $scope.taskDeadline,
                     'averageTimeSpent': 0}
+        $scope.currentCourse.courseTaskList.push(task);
+        Courses.put($scope.currentCourse)
+          .success(function(jsonData, statusCose) {
+            //alert("task added");  
+          })
+          .error(function(jsonData, statusCode) {
+            alert("add task failed");
+          })
+          
       }
     }
 
-    $scope.editTask = function(formValid) {
+    $scope.editTask = function(index, formValid) {
+      alert('edittask!! ' + formValid);
+      if (formValid) {
+        var task = $scope.currentCourse.courseTaskList[index];
+        task.name = $scope.taskName;
+        task.description = $scope.taskDescription;
+        task.dueDate = $scope.taskDeadline;
+        $scope.currentCourse.courseTaskList[index] = task;
+        Courses.put($scope.currentCourse)
+          .success(function(jsonData, statusCose) {
+            //alert("task updated");  
+          })
+          .error(function(jsonData, statusCode) {
+            alert("update task failed");
+          })
+      }
     }
 
-    $scope.deleteTask = function(task) {
+    $scope.deleteTask = function(taskIndex) {
+      $scope.currentCourse.courseTaskList.splice(taskIndex, 1);
+      Courses.put($scope.currentCourse)
+        .success(function(jsonData, statusCose) {
+          //alert("task added");  
+        })
+        .error(function(jsonData, statusCode) {
+          alert("delete task failed");
+        })
+
     }
 
 }]);
