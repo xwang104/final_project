@@ -210,8 +210,10 @@ CHControllers.controller('AddDropController', ['$scope', '$http', '$window', 'St
 }]);
 
 CHControllers.controller('InstructorController', 
-  ['$scope', '$http', '$window', '$cookieStore', 'InstructorUsers', 
-  function($scope, $http, $window, $cookieStore, InstructorUsers) {
+  ['$scope', '$http', '$window', '$cookieStore', 
+   'InstructorUsers', 'Courses',
+  function($scope, $http, $window, $cookieStore, 
+           InstructorUsers, Courses) {
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
@@ -238,24 +240,84 @@ CHControllers.controller('InstructorController',
       drawChart();
     });
 
-    var id = $cookieStore.get('id');
-    InstructorUsers.get({where: {"_id": id}})
+    var instructorId = $cookieStore.get('id');
+    var instructorName = $cookieStore.get('name');
+    Courses.get({where: {"instructorid": instructorId}})
       .success(function(jsonData, statusCode) {
         alert(JSON.stringify(jsonData));
+        $scope.courseList = jsonData.data;
+        
+        if ($scope.courseList.length > 0) {
+          $scope.currentCourse = $scope.courseList[0];
+        }
       })
       .error(function(jsonData, statusCode) {
         alert('ERROR' + JSON.stringify(jsonData)); 
       }) 
 
+    $scope.coursePanel = 'add';
+
+    $scope.openAddCourse = function() {
+      $scope.coursePanel = 'add';
+    }
+
+    $scope.showCourse = function(course) {
+      $scope.currentCourse = course;
+    }
+
     $scope.addCourse = function(formValid) {
+      if (formValid) {
+        var course = {"name": $scope.courseName, 
+                      "homepage": $scope.courseHomepage,
+                      "description": $scope.courseDescription,
+                      "instructorid": instructorId,
+                      "instructorName": instructorName,
+                      "courseTaskList": [],
+                      "studentList": []}
+
+        Courses.post(course).success(function(jsonData, statusCode) {
+            console.log('course successfully added');
+            $scope.courseList.push(course);
+          })
+          .error(function(jsonData, statusCode) {
+            console.log('course add error');
+          });
+      } else {
+        alert("invalid course information");
+      }
     }
 
     $scope.editCourse = function(formValid) {
       if (formValid) {
+        $scope.currentCourse.name = $scope.courseName;
+        $scope.currentCourse.homepage = $scope.courseHomepage;
+        $scope.currentCourse.description = $scope.courseDescription;
+
+        Courses.put($scope.currentCourse)
+          .success(function(jsonData, statusCose) {
+            alert("course updated");  
+          })
+          .error(function(jsonData, statusCode) {
+            alert("updating course failed");
+          })
       }
     }
 
-    $scope.addTask = function(courseId, formValid) {
+    $scope.addTask = function(formValid) {
+      if (formValid) {
+        var task = {'courseid': $scope.currentCourse._id,
+                    'courseName': $scope.currentCourse.name,
+                    'name': $scope.taskName,
+                    'description': $scope.taskDescription,
+                    'dueDate': $scope.taskDeadline,
+                    'averageTimeSpent': 0}
+      }
+    }
+
+    $scope.editTask = function(formValid) {
+    }
+
+    $scope.deleteTask = function(task) {
     }
 
 }]);
@@ -404,6 +466,8 @@ CHControllers.controller('LoginController', ['$scope', '$http', '$window', 'Stud
             if (user.password === $scope.password) {
               $cookieStore.put('role', 'instructor');
               $cookieStore.put('id', user._id);
+              $cookieStore.put('name', user.name);
+              $cookieStore.put('courseList', user.courseList);
               alert("Log in success!" +  $state.current);              
               $state.go('instructor.main');
             }

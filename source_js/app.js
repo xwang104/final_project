@@ -85,7 +85,8 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
       url: "/dashboard",
       views: {
         'body': {
-          templateUrl: 'partials/dashboard.html'
+          templateUrl: 'partials/dashboard.html',
+          controller: 'InstructorController'
         }
       }
     })
@@ -94,14 +95,13 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
         views: {
             'menu': {
                 templateUrl: 'partials/instructorMenu.html',
-                controller: 'InstructorController'
+                //controller: 'InstructorController'
             },
             'header': {
                 templateUrl: 'partials/instructorHeader.html'
             },
             'content': {
                 templateUrl: 'partials/instructorCourse.html',
-                controller: 'InstructorController'
             }
         },
     })

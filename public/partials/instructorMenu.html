@@ -1,5 +1,9 @@
 <div class="off-canvas position-right" id="offCanvasRight" data-off-canvas data-position="right">
   <ul class="vertical dropdown menu" data-dropdown-menu id="menulist">
+    <li ng-click="openAddCourse()"  data-close="offCanvasRight" data-open="course-panel">Add Course</li>
+    <li ng-repeat="course in courseList" ng-click="showCourse(course)" data-close="offCanvasRight">
+      {{course.name}}
+    </li>
     <li><a>SIGN OUT</a></li>
   </ul>
 </div>
