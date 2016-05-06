@@ -149,4 +149,4 @@ CHDirectives.directive("week", function() {
         return slots;
     }*/
 });
-
+ 

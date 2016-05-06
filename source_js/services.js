@@ -71,9 +71,9 @@ CHServices.factory('Courses', function($http, $window) {
 });
 
 
-var LSServices = angular.module('LSServices', []);
+//var LSServices = angular.module('LSServices', []);
 
-LSServices.factory('StudentUsers', function($http, $window) {
+CHServices.factory('StudentUsers', function($http, $window) {
     return {
         get : function(query) {
             var baseUrl = $window.sessionStorage.baseurl;
@@ -102,7 +102,7 @@ LSServices.factory('StudentUsers', function($http, $window) {
     }
 });
 
-LSServices.factory('InstructorUsers', function($http, $window) {
+CHServices.factory('InstructorUsers', function($http, $window) {
     return {
         get : function(query) {
             var baseUrl = $window.sessionStorage.baseurl;

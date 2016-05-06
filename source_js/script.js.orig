@@ -35,4 +35,10 @@ $('.back').click(function() {
   $('#signup-form').hide();
   $('#login-form').hide();
 });
+<<<<<<< HEAD
+
+
+
+=======
 */
+>>>>>>> 7f366a15f959219ef8ce1362a53b4b99416b24c0
