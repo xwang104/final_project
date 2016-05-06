@@ -9,7 +9,7 @@
             </li>
             <li class="row">
                 <div class="small-12 medium-3 columns info-title">Homepage</div>
-                <div class="small-12 medium-9 columns info">{{currentCourse.homepage}}</div>
+                <div class="small-12 medium-9 columns info"><a ng-href="{{currentCourse.homepage}}">{{currentCourse.homepage}}</a></div>
             </li>
             <li class="row">
                 <div class="small-12 medium-3 columns info-title">Description</div>
@@ -69,7 +69,7 @@
     <form data-abide novalidate name="courseFrom">
       <div class="row" style="height: 23em;">
         <div class="small-8 small-centered columns">
-          <label> Course Name {{courseName}} {{coursePanel}} <span class="required">*</span>
+          <label> Course Name <span class="required">*</span>
             <input ng-model="$parent.courseName" type="text"  required>
           </label>
           <label> Homepage
@@ -84,8 +84,8 @@
 
       <div class="row text-center" style="margin-bottom: 2em;">
         <div class="small-8 small-centered columns">
-          <button ng-if="coursePanel=='edit'" type="submit" value="submit" class="button" ng-click="editCourse(courseFrom.$valid)">Submit</button>
-          <button ng-if="coursePanel=='add'" type="submit" value="submit" class="button" ng-click="addCourse(courseFrom.$valid)">Submit</button>
+          <button ng-if="coursePanel=='edit'" data-close type="submit" value="submit" class="button" ng-click="editCourse(courseFrom.$valid)">Submit</button>
+          <button ng-if="coursePanel=='add'" data-close type="submit" value="submit" class="button" ng-click="addCourse(courseFrom.$valid)">Submit</button>
         </div>
       </div>
     </form>
@@ -122,10 +122,10 @@
 
       <div class="row text-center" style="margin-bottom: 2em;">
         <div class="small-8 small-centered columns">
-          <button ng-if="taskPanel=='edit'" type="submit" value="submit" class="button" ng-click="editTask(currentTaskIndex, taskFrom.$valid)">
+          <button ng-if="taskPanel=='edit'" data-close type="submit" value="submit" class="button" ng-click="editTask(currentTaskIndex, taskFrom.$valid)">
             Submit
           </button>
-          <button ng-if="taskPanel=='add'"  type="submit" value="submit" class="button" ng-click="addTask(taskFrom.$valid)">
+          <button ng-if="taskPanel=='add'"  data-close type="submit" value="submit" class="button" ng-click="addTask(taskFrom.$valid)">
             Submit
           </button>
         </div>

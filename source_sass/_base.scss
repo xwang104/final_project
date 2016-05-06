@@ -50,7 +50,7 @@ ul {
     
 }
 
-#profile, #course {
+#instructor, #profile, #course {
     height: 350px;
     margin-left: auto;
     margin-right: auto;
@@ -77,21 +77,42 @@ ul {
 
 #instructor {
     background-image: url("../data/images/instructor_bg.jpg");
-    background-size: 100% 100%;
+    overflow:hidden;
+    background-size: cover;
     @include breakpoint(medium down) {
         background-size: auto 100%;
+    }
+}
+
+#instructor-pic {
+    background-image:  url("../data/images/instructor_default.jpg");
+    overflow: hidden;
+    background-size: cover;
+    margin: auto;
+    //@include breakpoint(medium down) {
+    //    background-size: cover;
+    //}
+}
+
+#student-pic {
+    background-image:  url("../data/images/student_default.jpg");
+    overflow: hidden;
+    background-size: cover;
+    margin: auto;
+    @include breakpoint(medium down) {
+        background-size: cover;
     }
 }
 
 .circle {
     width: 180px;
     height: 180px;
-    @include breakpoint (medium down) {
-        width: 130px;
-        height: 130px;
-    }
+    //@include breakpoint (medium down) {
+    //    width: 130px;
+    //    height: 130px;
+    //}
     cursor: pointer;
-    padding-top: 50%;
+    //padding-top: 50%;
     border-radius: 50%;
     background-repeat: no-repeat;
     background-size: auto 100%;
