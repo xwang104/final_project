@@ -66,20 +66,28 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
             }
         },
     })
-    .state('student.course', {
-      url: "/course",
+    .state('course.detail', {
+      url: "/detail",
         views: {
             'menu': {
                 templateUrl: 'partials/studentMenu.html'
             },
             'header': {
-                templateUrl: 'partials/courseheader.html'
+                templateUrl: 'partials/courseheader.html',
             },
             'content': {
                 templateUrl: 'partials/course.html',
-                controller: 'CourseController'
             }
         },
+    })
+    .state('course', {
+      url: "/course/:id",
+      views: {
+        'body': {
+          templateUrl: 'partials/dashboard.html',
+          controller: 'CourseController'
+        }
+      }
     })
     .state('instructor', {
       url: "/dashboard",
