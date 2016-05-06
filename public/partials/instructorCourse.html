@@ -3,6 +3,7 @@
         <ul class="small-11 medium-10 small-centered columns" id="course-info">
             <div class="c-title">Course Infomation</div>
             <i class="fa fa-edit add" ng-click="coursePanel='edit'" data-open="course-panel"></i>
+            <i class="fa fa-trash-o add" ng-click="deleteCourse()"></i>
             <li class="row clear">
                 <div class="small-12 medium-3 columns info-title">Course Name</div>
                 <div class="small-12 medium-9 columns info">{{currentCourse.name}}</div>

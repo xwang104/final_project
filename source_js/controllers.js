@@ -246,17 +246,24 @@ CHControllers.controller('InstructorController',
 
     var instructorId = $cookieStore.get('id');
     $scope.instructorName = $cookieStore.get('name');
-    Courses.get({where: {"instructorid": instructorId}})
-      .success(function(jsonData, statusCode) {
-        $scope.courseList = jsonData.data;
-        //alert(JSON.stringify(jsonData.data)); 
-        if ($scope.courseList.length > 0) {
-          $scope.currentCourse = $scope.courseList[0];
-        }
-      })
-      .error(function(jsonData, statusCode) {
-        alert('ERROR' + JSON.stringify(jsonData)); 
-      }) 
+
+    var updateCourses = function (instructorId) {
+      Courses.get({where: {"instructorid": instructorId}})
+        .success(function(jsonData, statusCode) {
+          $scope.courseList = jsonData.data;
+          //alert(JSON.stringify(jsonData.data)); 
+          if ($scope.courseList.length > 0) {
+            $scope.currentCourse = $scope.courseList[0];
+          } else {
+            $scope.currentCourse = undefined;
+          }
+        })
+        .error(function(jsonData, statusCode) {
+          alert('ERROR' + JSON.stringify(jsonData)); 
+        }) 
+    }
+
+    updateCourses(instructorId);
 
     $scope.coursePanel = 'add';
 
@@ -283,7 +290,6 @@ CHControllers.controller('InstructorController',
                       "courseTaskList": [],
                       "studentList": []}
 
-        alert('adding course');
         Courses.post(course).success(function(jsonData, statusCode) {
             console.log('course successfully added');
             $scope.courseList.push(course);
@@ -304,7 +310,7 @@ CHControllers.controller('InstructorController',
 
         Courses.put($scope.currentCourse)
           .success(function(jsonData, statusCose) {
-            //alert("course updated");  
+            console.log("course updated");  
           })
           .error(function(jsonData, statusCode) {
             alert("updating course failed");
@@ -313,7 +319,6 @@ CHControllers.controller('InstructorController',
     }
 
     $scope.addTask = function(formValid) {
-      alert('addtask!! ' + formValid);
       if (formValid) {
         var task = {'courseid': $scope.currentCourse._id,
                     'courseName': $scope.currentCourse.name,
@@ -324,7 +329,7 @@ CHControllers.controller('InstructorController',
         $scope.currentCourse.courseTaskList.push(task);
         Courses.put($scope.currentCourse)
           .success(function(jsonData, statusCose) {
-            //alert("task added");  
+            console.log("task added");  
           })
           .error(function(jsonData, statusCode) {
             alert("add task failed");
@@ -343,7 +348,7 @@ CHControllers.controller('InstructorController',
         $scope.currentCourse.courseTaskList[index] = task;
         Courses.put($scope.currentCourse)
           .success(function(jsonData, statusCose) {
-            //alert("task updated");  
+            console.log("task updated");  
           })
           .error(function(jsonData, statusCode) {
             alert("update task failed");
@@ -351,14 +356,24 @@ CHControllers.controller('InstructorController',
       }
     }
 
-    $scope.deleteCourse = function(courseId) {
+    $scope.deleteCourse = function() {
+      if ($scope.currentCourse) {
+        Courses.delete($scope.currentCourse._id)
+          .success(function(jsonData, statusCode) {
+            console.log('course deleted');
+            updateCourses(instructorId);
+          })
+          .error(function(jsonData, statusCode) {
+            alert('delete course error');
+          }) 
+      }
     }
 
     $scope.deleteTask = function(taskIndex) {
       $scope.currentCourse.courseTaskList.splice(taskIndex, 1);
       Courses.put($scope.currentCourse)
-        .success(function(jsonData, statusCose) {
-          //alert("task added");  
+        .success(function(jsonData, statusCode) {
+          console.log("task added");  
         })
         .error(function(jsonData, statusCode) {
           alert("delete task failed");
