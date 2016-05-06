@@ -582,6 +582,24 @@ footer {
   }
 }
 
+#menulist {
+    padding-top:3em;
+    background:#205867;
+    font-weight: 800;
+    font-size: 1.1em;
+    li {
+        padding: 0.5em 0;
+        outline: 0;
+        a {
+            color:#fff;
+            outline: 0;
+        }
+        &:hover, &:focus {
+            background: $p-blue;
+        }
+    }
+}
+
 .course_0 {
     color: #1b9e77;
     font-weight: 500;

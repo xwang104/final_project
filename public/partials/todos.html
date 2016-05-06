@@ -15,7 +15,7 @@
                     <div class="assignment-name row" ng-if="todo.end > now"> 
                         <div class="small-12 large-7 columns">
                             <i class="fa fa-circle fa-lg" ng-class="courseColorList[todo.courseid]"></i>
-                            <a href="#details/{{todo.courseid}}/detail">{{todo.taskName}}</a>
+                            <a href="#/course/{{todo.courseid}}/detail">{{todo.taskName}}</a>
                         </div>
                         <div class="small-12 large-5 columns timespan"> 
                             <span style="font-weight:800">From: </span>{{todo.start.substring(5, 10) + " " + todo.start.substring(11, 19)}} <span style="font-weight:800">To: </span> {{todo.end.substring(5, 10) + " " + todo.end.substring(11, 19)}}<i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="deleteTodo(todo._id)" style="color: #205867;padding:0 1em;"></i>

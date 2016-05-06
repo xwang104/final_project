@@ -25,7 +25,7 @@
                             <div class="small-1 columns">
                                 <i class="fa fa-circle fa-lg" ng-class="courseColorList[due.courseid]"></i>
                             </div>
-                            <div class="small-7 medium-8 columns">
+                            <div class="small-7 medium-8 columns" style="padding-left:0">
                                 {{due.courseName + " " + due.name}} due
                             </div>
                         </li>
@@ -92,7 +92,7 @@
                             <i class="fa fa-circle fa-lg" ng-class="courseColorList[due.courseid]"></i>
                         </div>
                         <div class="small-7 large-8 columns">
-                            <div><a href="#details/{{due.courseid}}/detail">{{due.courseName}}</a></div>
+                            <div><a href="#/course/{{due.courseid}}/detail">{{due.courseName}}</a></div>
                             <div>Assginment: {{due.name}}</div>
                         </div>
                     </li>
