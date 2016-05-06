@@ -20,8 +20,10 @@
                     <span class="back" ng-click="showSlogan()">
                         <i class="fa fa-angle-double-left fa-lg" aria-hidden="true"></i>
                     </span>
-                    <input type="radio", ng-model="role", ng-value="true" id="student"> <label for="student">Student</label>
-                    <input type="radio", ng-model="role", ng-value="false" id="instructor" class="ins"> <label for="instructor">Instructor</label>
+                    <input type="radio", ng-model="role", ng-value="true" id="studentRadio"> 
+                    <label for="studentRadio">Student</label>
+                    <input type="radio", ng-model="role", ng-value="false" id="instructorRadio" class="ins"> 
+                    <label for="instructorRadio">Instructor</label>
                   </div>
                   <label> Email
                     <input ng-model="email" type="text" required>
@@ -53,17 +55,13 @@
                     <span class="back" ng-click="showSlogan()">
                         <i class="fa fa-angle-double-left fa-lg" aria-hidden="true"></i>
                     </span>
-                    <input type="radio", ng-model="role", ng-value="true" id="student"> <label for="student">Student</label>
-                    <input type="radio", ng-model="role", ng-value="false" id="instructor" class="ins"> <label for="instructor">Course</label>
+                    <input type="radio", ng-model="role", ng-value="true" id="studentRadio"> 
+                    <label for="studentRadio">Student</label>
+                    <input type="radio", ng-model="role", ng-value="false" id="instructorRadio" class="ins"> 
+                    <label for="instructorRadio">Course</label>
                   </div>
                   <label> Email
                     <input ng-model="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
-                    <span class="form-error">
-                      I'm required!
-                    </span>
-                  </label>
-                  <label ng-show="role == false"> Serial
-                    <input ng-model="serial" type="text" required>
                     <span class="form-error">
                       I'm required!
                     </span>
