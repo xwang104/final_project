@@ -4,7 +4,7 @@
             <div class="sub-title"> NEW RELEASED </div>
             <ul style="padding:2em">
               <li ng-repeat="task in courseTasks | orderBy: 'releaseDate':true">
-                <a href="#details/{{task.courseid}}/detail" ng-if="task.dueDate > now" ng-class="courseColorList[task.courseid]">{{task.courseName.split(" ")[0] + " " + task.name}}</a>
+                <a href="#/course/{{task.courseid}}/detail" ng-if="task.dueDate > now" ng-class="courseColorList[task.courseid]">{{task.courseName.split(" ")[0] + " " + task.name}}</a>
                 <div class="task-info row text-left" ng-if="task.dueDate > now">
                     <div class="small-6 columns"><span>Due: </span>{{task.dueDate.substring(5, 10) + " " + task.dueDate.substring(11, 16)}}</div>
                     <div class="small-6 columns"><span>Release: </span>{{task.releaseDate.substring(5, 10) + " " + task.releaseDate.substring(11, 16)}}</div>

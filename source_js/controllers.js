@@ -1,6 +1,6 @@
 var CHControllers = angular.module('CHControllers', ['ngCookies']);
 
-var url = 'http://tarekc53.cs.illinois.edu:4000'
+var url = 'http://localhost:4000'
 
 
 CHControllers.controller('DuesController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', function($scope, $http, $window, StudentUsers, Courses, $cookieStore) {
@@ -654,6 +654,7 @@ CHControllers.controller('InstructorController',
 CHControllers.controller('CourseController', 
   ['$scope', '$http', '$window','$stateParams', 'Courses', 
   function($scope, $http, $window, $stateParams, Courses) {
+    $window.sessionStorage.baseurl = url;
     var id = $stateParams.id;
 
     Courses.get(id)
