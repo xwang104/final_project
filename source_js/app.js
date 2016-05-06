@@ -4,6 +4,15 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
   $urlRouterProvider.otherwise("/dashboard/dues");
 
   $stateProvider
+    .state('login', {
+      url: "/login",
+      views: {
+        'body': {
+          templateUrl: 'partials/login.html',
+          controller: 'LoginController'
+        }
+      }
+    })
     .state('student', {
       url: "/dashboard",
       views: {
@@ -84,7 +93,8 @@ app.config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider
       url: "/main",
         views: {
             'menu': {
-                templateUrl: 'partials/instructorMenu.html'
+                templateUrl: 'partials/instructorMenu.html',
+                controller: 'InstructorController'
             },
             'header': {
                 templateUrl: 'partials/instructorHeader.html'
@@ -104,13 +114,14 @@ app.run(function($rootScope) {
     });
 });
 
-
+/*
 var app_login = angular.module('login', ['LSControllers', 'LSServices']);
 app_login.run(function($rootScope) {
     $rootScope.$on('$viewContentLoaded', function () {
         $(document).foundation();
     });
 });
+*/
 
 
 

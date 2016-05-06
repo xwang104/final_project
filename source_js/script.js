@@ -15,6 +15,7 @@ function highlightThis(event) {
     this.style.backgroundColor=backgroundColor;
 }
 
+/*
 $('#signup').click(function(){
   $('#logo').animate({paddingTop:"1.8em"}, 200);
   $('#slogan').hide();
@@ -22,6 +23,7 @@ $('#signup').click(function(){
 });
 
 $('#login').click(function() {
+  alert("login");
   $('#logo').animate({paddingTop:"2.2em"}, 200);
   $('#slogan').hide();
   $('#login-form').show();
@@ -33,3 +35,4 @@ $('.back').click(function() {
   $('#signup-form').hide();
   $('#login-form').hide();
 });
+*/

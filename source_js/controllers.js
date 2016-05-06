@@ -1,9 +1,10 @@
 var CHControllers = angular.module('CHControllers', ['ngCookies']);
 
+var url = 'http://tarekc53.cs.illinois.edu:4000'
 
 
 CHControllers.controller('DuesController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', function($scope, $http, $window, StudentUsers, Courses, $cookieStore) {
-  $window.sessionStorage.baseurl = 'http://localhost:4000'
+  $window.sessionStorage.baseurl = url;
   var role = $cookieStore.get("role");
   var id = $cookieStore.get("id");
   console.log(id);
@@ -103,7 +104,7 @@ CHControllers.controller('TodosController', ['$scope', '$http', '$window', funct
 
 
 CHControllers.controller('AddDropController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', function($scope, $http, $window, StudentUsers, Courses, $cookieStore) {
-  $window.sessionStorage.baseurl = 'http://localhost:4000'
+  $window.sessionStorage.baseurl = url;
   var role = $cookieStore.get("role");
   var id = $cookieStore.get("id");
   console.log(id);
@@ -208,6 +209,58 @@ CHControllers.controller('AddDropController', ['$scope', '$http', '$window', 'St
 
 }]);
 
+CHControllers.controller('InstructorController', 
+  ['$scope', '$http', '$window', '$cookieStore', 'InstructorUsers', 
+  function($scope, $http, $window, $cookieStore, InstructorUsers) {
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+        ]);
+
+        var options = {
+          title: 'My Daily Activities'
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+    }
+
+
+
+    $(window).resize(function(){
+      drawChart();
+    });
+
+    var id = $cookieStore.get('id');
+    InstructorUsers.get({where: {"_id": id}})
+      .success(function(jsonData, statusCode) {
+        alert(JSON.stringify(jsonData));
+      })
+      .error(function(jsonData, statusCode) {
+        alert('ERROR' + JSON.stringify(jsonData)); 
+      }) 
+
+    $scope.addCourse = function(formValid) {
+    }
+
+    $scope.editCourse = function(formValid) {
+      if (formValid) {
+      }
+    }
+
+    $scope.addTask = function(courseId, formValid) {
+    }
+
+}]);
+
+
 CHControllers.controller('CourseController', ['$scope', '$http', '$window', function($scope, $http, $window) {
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
@@ -236,31 +289,6 @@ CHControllers.controller('CourseController', ['$scope', '$http', '$window', func
 }]);
 
 
-CHControllers.controller('InstructorController', ['$scope', '$http', '$window', function($scope, $http, $window) {
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Tasks', 'Total Time Spent'],
-          ['MP1',     11],
-          ['MP2',      6],
-          ['MP3',     20],
-        ]);
-
-        var options = {
-          title: 'My Daily Activities'
-        };
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-    }
-
-    $(window).resize(function(){
-      drawChart();
-    });
-
-}]);
-
 CHControllers.controller('SettingsController', ['$scope' , '$window' , function($scope, $window) {
   $scope.url = $window.sessionStorage.baseurl;
 
@@ -272,15 +300,36 @@ CHControllers.controller('SettingsController', ['$scope' , '$window' , function(
 
 }]);
 
-var LSControllers = angular.module('LSControllers', ['ngCookies']);
+//var LSControllers = angular.module('LSControllers', ['ngCookies']);
 
-LSControllers.controller('SignupController', ['$scope', '$http', '$window', 'StudentUsers', 'InstructorUsers', '$cookieStore', function($scope, $http, $window, StudentUsers, InstructorUsers, $cookieStore) {
-  $window.sessionStorage.baseurl = 'http://localhost:4000'
+CHControllers.controller('LoginController', ['$scope', '$http', '$window', 'StudentUsers', 'InstructorUsers', '$cookieStore', '$state', function($scope, $http, $window, StudentUsers, InstructorUsers, $cookieStore, $state) {
+
+  // switch panels
+  $scope.showPanel = 'slogan';
+
+  $scope.showLogin = function () {
+    $('#logo').animate({paddingTop:"2.2em"}, 200);
+    $scope.showPanel = 'login';
+  }
+
+  $scope.showSignup = function () {
+    $('#logo').animate({paddingTop:"1.8em"}, 200);
+    $scope.showPanel = 'signup';
+  }
+
+  $scope.showSlogan = function () {
+    $('#logo').animate({paddingTop:"2.5em"});
+    $scope.showPanel = 'slogan';
+  }
+
+
+  //add a new user
+  $window.sessionStorage.baseurl = url;
   $scope.role = true;
   $scope.email = '';
   $scope.name = '';
   $scope.password = '';
-  //add a new user
+
   $scope.addUser = function(formValid) {
     if (formValid) {
       var user = {"email": $scope.email, "name": $scope.name, "password": $scope.password};
@@ -289,6 +338,7 @@ LSControllers.controller('SignupController', ['$scope', '$http', '$window', 'Stu
         console.log("before post");
         StudentUsers.post(user).success(function(jsonData, statusCode) {
           console.log('The request for adding a student user was successful', statusCode);
+          $scope.showSlogan();
         })
         .error(function(jsonData, statusCode) {
           alert("This email already exists!");
@@ -296,9 +346,11 @@ LSControllers.controller('SignupController', ['$scope', '$http', '$window', 'Stu
         });
       }
       else {
-        //creat new instructor user
+        //creat new instructor/course user
+        user['courseList'] = [];
         InstructorUsers.post(user).success(function(jsonData, statusCode) {
           console.log('The request for adding a instructor user was successful', statusCode);
+          $scope.showSlogan();
         })
         .error(function(jsonData, statusCode) {
           alert("This email already exists!");
@@ -309,15 +361,7 @@ LSControllers.controller('SignupController', ['$scope', '$http', '$window', 'Stu
     }
   };
 
-}]);
-
-LSControllers.controller('LoginController', ['$scope', '$http', '$window', 'StudentUsers', 'InstructorUsers', '$cookieStore', function($scope, $http, $window, StudentUsers, InstructorUsers, $cookieStore) {
-  $window.sessionStorage.baseurl = 'http://localhost:4000'
-  $scope.role = true;
-  $scope.email = '';
-  $scope.password = '';
-
-  $scope.Login = function(formValid) {
+  $scope.login = function(formValid) {
     if (formValid) {
       if ($scope.role) {
         //find student user
@@ -337,6 +381,7 @@ LSControllers.controller('LoginController', ['$scope', '$http', '$window', 'Stud
               $cookieStore.put('id', user._id);
               console.log($cookieStore.get("id"));
               alert("Log in success!");
+              $state.go('student.dues');
             }
             else {
               alert("Wrong Password!");
@@ -349,7 +394,7 @@ LSControllers.controller('LoginController', ['$scope', '$http', '$window', 'Stud
       }
       else {
         //find instructor user
-        InstructorUsers.post(user).success(function(jsonData, statusCode) {
+        InstructorUsers.get({where: {"email": $scope.email}}).success(function(jsonData, statusCode) {
           console.log('The request for finding a instructor user was successful', statusCode);
           if (jsonData.data.length === 0) {
             alert("This user is not Registered!");
@@ -359,7 +404,8 @@ LSControllers.controller('LoginController', ['$scope', '$http', '$window', 'Stud
             if (user.password === $scope.password) {
               $cookieStore.put('role', 'instructor');
               $cookieStore.put('id', user._id);
-              alert("Log in success!");              
+              alert("Log in success!" +  $state.current);              
+              $state.go('instructor.main');
             }
             else {
               alert("Wrong Password!");

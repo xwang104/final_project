@@ -105,10 +105,16 @@
                             <i class="fa fa-angle-double-left fa-lg" aria-hidden="true"></i>
                         </span>
                         <input type="radio", ng-model="role", ng-value="true" id="student"> <label for="student">Student</label>
-                        <input type="radio", ng-model="role", ng-value="false" id="instructor" class="ins"> <label for="instructor">Instructor</label>
+                        <input type="radio", ng-model="role", ng-value="false" id="instructor" class="ins"> <label for="instructor">Course</label>
                       </div>
                       <label> Email
                         <input ng-model="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                        <span class="form-error">
+                          I'm required!
+                        </span>
+                      </label>
+                      <label ng-show="role == false"> Serial
+                        <input ng-model="serial" type="text" required>
                         <span class="form-error">
                           I'm required!
                         </span>
@@ -176,6 +182,6 @@
     <script>
     $(document).foundation();
     </script>
-    <script src="http://localhost:35729/livereload.js"></script>
+    <script src="http://tarekc53.cs.illinois.edu:35729/livereload.js"></script>
 </body>
 </html>
