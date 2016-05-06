@@ -654,6 +654,7 @@ CHControllers.controller('InstructorController',
 CHControllers.controller('CourseController', 
   ['$scope', '$http', '$window','$stateParams', 'Courses', 
   function($scope, $http, $window, $stateParams, Courses) {
+    $window.sessionStorage.baseurl = url;
     var id = $stateParams.id;
 
     Courses.get(id)
