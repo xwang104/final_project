@@ -1,38 +1,47 @@
 <div class="container">
     <div class="row">
-        <div class="small-6 columns">
-            <div class="sub-title">TODOs of the Week</div>
-        </div>
         <div class="small-6 columns"> 
-            <div class="sub-title" style="background: #a5a5a5">All TODOs<i class="fa fa-plus add" data-open="add-todo"></i> </div>
+            <div class="sub-title" id="all-todo" ng-click="showTodo()">All TODOs<i class="fa fa-plus add" data-open="add-todo"></i> </div>
         </div>
+        <div class="small-6 columns">
+            <div class="sub-title" id="all-due"style="background: #a5a5a5" ng-click="showDue()">All DUES<i class="fa fa-plus add" data-open="add-task"></i> </div>
+        </div>
+
     </div>
     <div class="row">
         <div class="small-12 columns" >
-            <ul id="todos">
-                <li>
-                    <div class="assignment-name"> 
-                        <i class="fa fa-circle fa-lg" style="color:pink"></i>
-                        <a>CS411 MP1</a>
-                        <span> 
-                            Due 03/23/16 <i class="fa fa-pencil fa-lg"></i><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
-                        </span>
+            <ul id="todos" style="display:block; padding:2em">
+                <li ng-repeat="todo in user.todoList | orderBy: 'start':false">
+                    <div class="assignment-name row" ng-if="todo.end > now"> 
+                        <div class="small-12 large-7 columns">
+                            <i class="fa fa-circle fa-lg" ng-class="courseColorList[todo.courseid]"></i>
+                            <a href="#details/{{todo.courseid}}/detail">{{todo.taskName}}</a>
+                        </div>
+                        <div class="small-12 large-5 columns timespan"> 
+                            <span style="font-weight:800">From: </span>{{todo.start.substring(5, 10) + " " + todo.start.substring(11, 19)}} <span style="font-weight:800">To: </span> {{todo.end.substring(5, 10) + " " + todo.end.substring(11, 19)}}<i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="deleteTodo(todo._id)" style="color: #205867;padding:0 1em;"></i>
+                        </div>
                     </div>
-                    <div class="todo-content"> Study slides 12, 13. Read book chapter 14</div>
+                    <div class="todo-content row" ng-if="todo.end > now"><span style="font-weight:800">To Do: </span> {{todo.description}}</div>
                 </li>
-                <li>
-                    <div class="assignment-name"> 
-                        <i class="fa fa-circle fa-lg"></i>
-                        <a>CS413 MP1</a>
-
+            </ul>
+            <ul id="dues" style="display:none;padding:2em">
+                <li ng-repeat="task in allTasks | orderBy: 'dueDate':false">
+                    <div class="assignment-name row" ng-if="task.dueDate > now"> 
+                        <div class="small-12 large-9 columns">
+                            <i class="fa fa-circle fa-lg" ng-class="courseColorList[task.courseid]"></i>
+                            <a>{{task.courseName + " " + task.name}}</a>
+                        </div>
+                        <div class="small-12 large-3 columns timespan"> 
+                            <span style="font-weight:800">Deadline:</span> {{task.dueDate.substring(5, 10) + " " + todo.start.substring(11, 19)}} <i class="fa fa-trash fa-lg" aria-hidden="true" ng-show="personalTaskid.indexOf(task._id) >= 0" ng-click="deleteTask(task._id)" style="color: #205867;padding:0 1em;"></i>
+                        </div>
                     </div>
-                    <div class="todo-content"> Have to solve problem 3-5 by today. Go to office hours.</div>
+                    <div class="todo-content row" ng-if="task.dueDate > now"><span style="font-weight:800">Description:</span>  {{task.description}}</div>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="row">
-        <week class="small-12 columns" ></week>
+    <div class="row" class="hide-for-small-only">
+        <week class="small-12 columns hide-for-small-only" ></week>
     </div>
 </div>
 
@@ -40,12 +49,12 @@
     <div class="modal-title"><i class="fa fa-calendar-plus-o fa-2x" aria-hidden="true"></i>Add Todo for Task</div>
 
     <div>
-      <form data-abide novalidate name="userFrom">
+      <form data-abide novalidate name="todoFrom">
         <div class="row" style="height: 21em;">
             <div class="small-8 small-centered columns">
               <label> Choose Task <span class="required">*</span>
                 <select required
-                  ng-options="" 
+                  ng-options="option.taskname for option in data.availableOptions track by option._id" 
                   ng-model="data.selectedOption">
                 </select>
               </label>
@@ -53,17 +62,54 @@
                 <input ng-model="description" type="text">
               </label>
               <label> Start Time <span class="required">*</span>
-                  <input ng-model="startTime" type="datetime-local" required>
+                  <input ng-model="start" type="datetime-local" required>
               </label>
-              <label> End Time <span class="required">*</span>
-                  <input ng-model="endTime" type="datetime-local" required>
+              <label> End Time <span class="required" min={{start}}>*</span>
+                  <input ng-model="end" type="datetime-local" required>
               </label>
             </div>
         </div>
 
         <div class="row text-center" style="margin-bottom: 2em;">
           <div class="small-8 small-centered columns">
-            <button type="submit" value="submit" class="button">Submit</button>
+            <button type="submit" value="submit" class="button" ng-click="addTodo(todoFrom.$valid)">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="reveal" id="add-task" data-reveal>
+    <div class="modal-title"><i class="fa fa-calendar-plus-o fa-2x" aria-hidden="true"></i>Add Your Own Task</div>
+
+    <div>
+      <form data-abide novalidate name="ptaskFrom">
+        <div class="row" style="height: 21em;">
+            <div class="small-8 small-centered columns">
+              <label> Choose Course <span class="required">*</span>
+                <select required
+                  ng-options="option.courseName for option in data_1.availableOptions track by option.courseid"
+                  ng-model="data_1.selectedOption">
+                </select>
+              </label>
+              <label> Name <span class="required">*</span>
+                <input ng-model="name" type="text" required>
+              </label>
+              <label> Description
+                <input ng-model="task_description" type="text">
+              </label>
+              <label> Deadline <span class="required">*</span>
+                  <input ng-model="deadline" type="datetime-local" required>
+              </label>
+            </div>
+        </div>
+
+        <div class="row text-center" style="margin-bottom: 2em;">
+          <div class="small-8 small-centered columns">
+            <button type="submit" value="submit" class="button" ng-click="addPTask(ptaskFrom.$valid)">Submit</button>
           </div>
         </div>
       </form>

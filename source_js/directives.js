@@ -4,10 +4,12 @@ CHDirectives.directive("calendar", [function() {
     return {
         restrict: "E",
         templateUrl: "partials/calendar.html",
-        controller: 'DuesController',
-        scope: {
-            selected: "="
-        },
+        //controller: 'DuesController',
+        scope: false,
+        //{ 
+         //   upcommingDuesDic: "=",
+         //   selected: "="
+        //},
         link: function(scope) {
 
             scope.initial = _removeTime(scope.selected || moment());
@@ -76,9 +78,7 @@ CHDirectives.directive("week", function() {
     return {
         restrict: "E",
         templateUrl: "partials/week.html",
-        scope: {
-            selected: "="
-        },
+        scope: true,
         link: function(scope) {
 
             scope.initial = _removeTime(scope.selected || moment());
@@ -133,14 +133,13 @@ CHDirectives.directive("week", function() {
                 number: date.date(),
                 isToday: date.isSame(new Date(), "day"),
                 date: date,
-                slots: _buildDay(date)
             });
             date = date.clone();
             date.add(1, "d");
         }
     }
 
-    function _buildDay(date) {
+    /*function _buildDay(date) {
         var slots = [];
         for (var i = 0; i < 24; i++) {
             slots.push ({
@@ -148,6 +147,6 @@ CHDirectives.directive("week", function() {
             })            
         }
         return slots;
-    }
+    }*/
 });
 

@@ -133,6 +133,7 @@ ul {
     margin: .5em 0;
     background: $p-blue;
     text-align: center;
+    cursor: pointer;
 }
 
 .modal-title {
@@ -172,19 +173,22 @@ ul {
     }
 }
 
-.accordion-title::before {
-    font-family: FontAwesome;
-    content: "\f0da";
-    font-size: 1em;
-    color: pink;
-    position: relative;
-    padding: 0 1em;
+#news {
+    ul li 
+        a {
+            display: block;
+            padding: 1em 0;
+        }
+        .task-info {
+            border-top: 1px solid $light-gray;
+            border-bottom: 1px solid $light-gray;
+            padding: 0.5em 0;
+            span {
+                font-weight: 800;
+            }
+        }
+    
 }
-
-.is-active > .accordion-title::before {
-    content:"\f0d7";
-}
-
 
 
 .add {
@@ -202,12 +206,12 @@ ul {
     padding: 0 1em;
 }
 
-.fa-pencil, .fa-check-circle{
+.fa-pencil, .fa-trash{
     padding: 0 0 0 0.5em;
     cursor: pointer;
 }
 
-#upcoming, #day-detail, {
+#upcoming, #day-detail, #all-due {
     ul li {
         .date {
             display: block;
@@ -217,9 +221,7 @@ ul {
             margin: 0;
             border-top: 1px solid $light-gray;
             border-bottom: 1px solid $light-gray;
-            background:none;
             li {
-                background:none;
                 span {
                     width: 5em;
                     border-right: 3px solid orange;
@@ -251,6 +253,7 @@ calendar {
         margin-right: 0.91666%;
         margin-top: 0.5em;
         cursor: pointer;
+        overflow-y:auto;
         @include breakpoint(small only) {
             text-align: center;
             height: 4em;
@@ -285,19 +288,20 @@ i.fa-chevron-circle-right {
     float: right;
 }
 
-#todos {
+#todos, #dues {
     li {
-        border-top: 0.4em solid $bg-gray;
-        border-bottom: 0.3em solid $bg-gray;
         div {
-            padding: 1em;
+            padding: 0.6em;
         }
-        span {
-            float: right;
+        .assignment-name {
+            border-bottom: 1px solid $light-gray;
         }
         .todo-content {
-            margin: 0 1em;
-            border-top: 2px solid $light-gray;
+            border-bottom: 2px solid $light-gray;
+            padding: 0.6em 2em;
+        }
+        .timespan {
+            padding-left: 1.3em;
         }
     }
 }
@@ -310,29 +314,31 @@ week {
     }
     .time-span {
         padding: 0;
-    }
-    ul {
-        margin-top: 4em;
-        .time-slot {
-            margin: 0;
-            padding: 1.15em;
+        ul {
+            margin-top: 4em;
+            height: 30em;
+            background: $p-blue;
+            color: #fff;
+            p {
+                writing-mode: tb-rl;
+                font-size: 1.5em;
+                font-weight: 600;
+                margin: 0 auto;
+                padding-top: 5em;
+            }
         }
     }
     .oneday {
+        background: #fff;
+        height: 30em;
+        overflow-y: auto;
         width: 13.5%;
         margin-right: 0.91666%;
         padding: 0;
         margin-top: 1em;  
         &:last-child {
-        margin-right: 0;
-    }  
-    }
-    .everytime {
-        background: #fff;
-        color: $p-blue;
-        height: 2.15em;
-        border-bottom: 1px dotted $p-blue;
-        cursor: pointer;      
+            margin-right: 0;
+        }  
     }
 }
 
@@ -546,3 +552,48 @@ footer {
     }
   }
 }
+
+.course_0 {
+    color: #1b9e77;
+    font-weight: 500;
+}
+
+.course_1 {
+    color: #d95f02;
+    font-weight: 500;
+}
+
+.course_2 {
+    color: #7570b3;
+    font-weight: 500;
+}
+
+.course_3 {
+    color: #e7298a;
+    font-weight: 500;
+}
+
+.course_4 {
+    color: #66a61e;
+    font-weight: 500;
+}
+
+.course_5 {
+    color: #ffd700;
+    font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
