@@ -175,6 +175,7 @@ ul {
 }
 
 .c-title {
+    float: left;
     color: #fff;
     background: $p-blue;
     border-right: 5px solid $l-blue;
@@ -581,6 +582,7 @@ footer {
     }
   }
 }
+<<<<<<< HEAD
 
 .course_0 {
     color: #1b9e77;
@@ -626,3 +628,5 @@ footer {
 
 
 
+=======
+>>>>>>> 7f366a15f959219ef8ce1362a53b4b99416b24c0

@@ -8,19 +8,8 @@
     <div class="small-12 columns">
         <div class="small-1 columns time-span">
             <ul>
-                <li class="sub-title time-slot" style="padding-top: 0">00:00</li>
-                <li class="sub-title time-slot">02:00</li>
-                <li class="sub-title time-slot">04:00</li>
-                <li class="sub-title time-slot">06:00</li>
-                <li class="sub-title time-slot">08:00</li>
-                <li class="sub-title time-slot">10:00</li>
-                <li class="sub-title time-slot">12:00</li>
-                <li class="sub-title time-slot">14:00</li>
-                <li class="sub-title time-slot">16:00</li>
-                <li class="sub-title time-slot">18:00</li>
-                <li class="sub-title time-slot">20:00</li>
-                <li class="sub-title time-slot" style="padding-bottom: 2.4em">22:00</li>
-            <ul>
+                <p>Manage your time</p>
+            </ul>
         </div>
         <div class="small-11 columns" style="padding-left: 2em">
             <div class="row">
@@ -32,9 +21,22 @@
                 <div class="small-1 columns sub-title weekday">Fri</div>
                 <div class="small-1 columns sub-title weekday" style="margin-right: 0">Sat</div>
             </div>
-            <div class="row">
+            <div class="row text-center">
                 <div class="small-1 columns oneday" ng-repeat="day in days">
-                    <div class="everytime" ng-repeat="slot in day.slots">{{slot.todo}}</div>
+                    {{day.date.format().substring(5, 10)}}
+                    <ul ng-if="upcommingDuesDic.hasOwnProperty(day.date.format().substring(0, 10))" class="text-left" style="padding:3px;">
+                        <li style="font-weight:800; color:#205867">Dues:</li>
+                        <li ng-repeat="due in upcommingDuesDic[day.date.format().substring(0, 10)]" ng-class="courseColorList[due.courseid]" style="background:#b7dde8">{{due.courseName.split(" ")[0] + " " + due.name}} Due!</li>
+                    </ul>
+                    <ul ng-if="todoDic.hasOwnProperty(day.date.format().substring(0, 10))" class="text-left" style="padding:3px;">
+                        <li style="font-weight:800; color:#205867">Todos: </li>
+                        <li ng-repeat="todo in todoDic[day.date.format().substring(0, 10)]" style="background:#EAEAEA">
+                            <div ng-class="courseColorList[todo.courseid]">{{todo.taskName}}</div>
+                            <div>{{todo.description}}</div>
+                            <div>Start:{{todo.start.substring(11,16)}}</div>
+                            <div>End:{{todo.end.substring(11, 16)}}</div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

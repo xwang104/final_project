@@ -1,30 +1,34 @@
 <div class="container">
     <div class="row">
-        <div class="small-12 large-5 columns" id="news">
-            <div class="sub-title"> NEWS </div>
-            <ul class="accordion" data-accordion>
-              <li class="accordion-item is-active" data-accordion-item>
-                <a class="accordion-title">Accordion 1</a>
-                <div class="accordion-content" data-tab-content>
-                  I would start in the open state, due to using the `is-active` state class.
-                </div>
-              </li>
-              <li class="accordion-item" data-accordion-item>
-                <a class="accordion-title">Accordion 2</a>
-                <div class="accordion-content" data-tab-content>
-                  I would start in the close state.
+        <div class="small-12 large-6 columns text-center" id="news">
+            <div class="sub-title"> NEW RELEASED </div>
+            <ul style="padding:2em">
+              <li ng-repeat="task in courseTasks | orderBy: 'releaseDate':true">
+                <a href="#details/{{task.courseid}}/detail" ng-if="task.dueDate > now" ng-class="courseColorList[task.courseid]">{{task.courseName.split(" ")[0] + " " + task.name}}</a>
+                <div class="task-info row text-left" ng-if="task.dueDate > now">
+                    <div class="small-6 columns"><span>Due: </span>{{task.dueDate.substring(5, 10) + " " + task.dueDate.substring(11, 16)}}</div>
+                    <div class="small-6 columns"><span>Release: </span>{{task.releaseDate.substring(5, 10) + " " + task.releaseDate.substring(11, 16)}}</div>
+                    <div class="small-12 columns"><span>Description: </span>{{task.description}}</div>
                 </div>
               </li>
             </ul>
         </div>
-        <div class="small-12 large-7 columns text-center" id="upcoming">
-            <div class="sub-title"> Upcoming Dues and Events <i class="fa fa-plus add" data-open="add-task"></i></div>
+        <div class="small-12 large-6 columns text-center" id="upcoming">
+            <div class="sub-title"> UPCOMMING<!--i class="fa fa-plus add" data-open="add-task"></i--></div>
             <div class="clear"><!-- --></div>
-            <ul>
-                <li ng-repeat="duesPerDay in upcommingDuesArr">
-                    <a class="date">{{duesPerDay.date}} </a>
-                    <ul class="text-left">
-                        <li ng-repeat="due in duesPerDay.dues"><span>{{due.dueDate.substring(11, 19)}} </span><i class="fa fa-circle fa-lg" style="color:pink"></i>{{due.courseName + " " + due.name}} due</li>
+            <ul style="padding: 2em">
+                <li ng-repeat="duesPerDay in upcommingDuesArr | orderBy: 'date':false">
+                    <a class="date" ng-if="duesPerDay.dues[0].dueDate > now">{{duesPerDay.date}}</a>
+                    <ul class="text-left" ng-if="duesPerDay.dues[0].dueDate > now">
+                        <li class="row" ng-repeat="due in duesPerDay.dues">
+                            <span class="small-3 columns">{{due.dueDate.substring(11, 19)}} </span>
+                            <div class="small-1 columns">
+                                <i class="fa fa-circle fa-lg" ng-class="courseColorList[due.courseid]"></i>
+                            </div>
+                            <div class="small-7 medium-8 columns">
+                                {{due.courseName + " " + due.name}} due
+                            </div>
+                        </li>
                         <!--li> <span> 20:00pm </span> <i class="fa fa-circle fa-lg" ></i>CS511 MP2 due</li-->
                     </ul>
                 </li>
@@ -33,7 +37,7 @@
     </div>
     <div class="row">
         <calendar class="small-12 columns" selected="day"></calendar>
-        <div class="small-12 text-center">Selected date: <b>{{day.format('dddd, MMMM Do YYYY')}}</b></div>
+        <div class="small-12 text-center">Selected date: <b>{{selected.format('dddd, MMMM Do YYYY')}}</b></div>
     </div>
 </div>
 
@@ -78,18 +82,18 @@
     <div class="modal-title"><i class="fa fa-list-ul fa-2x" aria-hidden="true"></i> Details of the Day</div>
 
     <div class="row text-center">
-        <ul class="small-8 small-centered">
+        <ul class="small-11 large-8 small-centered">
             <li>
-                <a class="date">{{day.format('dddd, MMMM Do YYYY')}}</a>
+                <div class="date" >{{selected.format('dddd, MMMM Do YYYY')}}</div>
                 <ul class="text-left">
-                    <li class="row" ng-repeat="due in upcommingDuesDic[day.format().substring(0, 10)]">
-                        <span class="small-2 columns">{{due.dueDate.substring(11, 19)}} </span>
+                    <li class="row" ng-repeat="due in upcommingDuesDic[selected.format().substring(0, 10)]">
+                        <span class="small-1 columns">{{due.dueDate.substring(11, 19)}} </span>
                         <div class="small-1 columns">
-                            <i class="fa fa-circle fa-lg" style="color:pink"></i>
+                            <i class="fa fa-circle fa-lg" ng-class="courseColorList[due.courseid]"></i>
                         </div>
-                        <div class="small-8 columns">
-                            <div>{{due.courseName}}</div>
-                            <div>Assgiment: {{due.name}}</div>
+                        <div class="small-7 large-8 columns">
+                            <div><a href="#details/{{due.courseid}}/detail">{{due.courseName}}</a></div>
+                            <div>Assginment: {{due.name}}</div>
                         </div>
                     </li>
                 </ul>

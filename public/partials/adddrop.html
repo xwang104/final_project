@@ -20,7 +20,7 @@
                 </li>
                 <li class="row" ng-repeat="course in user.courseList">
                     <div class="small-7 columns">
-                        <p><i class="fa fa-circle fa-lg" style="color:pink"></i>{{course.courseName}}</p>
+                        <p><i class="fa fa-circle fa-lg" ng-class="courseColorList[course.courseid]"></i>{{course.courseName}}</p>
                     </div>
                     <div class="small-3 columns">
                         <button type="submit" value="submit" class="button" ng-click="dropCourse(course.courseid)">Drop</button>
