@@ -518,7 +518,7 @@ CHControllers.controller('InstructorController',
       Courses.get({where: {"instructorid": instructorId}})
         .success(function(jsonData, statusCode) {
           $scope.courseList = jsonData.data;
-          //alert(JSON.stringify(jsonData.data)); 
+          console.log(JSON.stringify(jsonData.data)); 
           if ($scope.courseList.length > 0) {
             $scope.currentCourse = $scope.courseList[0];
           } else {
@@ -651,7 +651,20 @@ CHControllers.controller('InstructorController',
 }]);
 
 
-CHControllers.controller('CourseController', ['$scope', '$http', '$window', function($scope, $http, $window) {
+CHControllers.controller('CourseController', 
+  ['$scope', '$http', '$window','$stateParams', 'Courses', 
+  function($scope, $http, $window, $stateParams, Courses) {
+    var id = $stateParams.id;
+
+    Courses.get(id)
+      .success(function(jsonData, statusCode) {
+        $scope.currentCourse = jsonData.data;
+      })
+      .error(function(jsonData, statusCode) {
+        alert("get course error: " + id);
+      })
+
+
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
