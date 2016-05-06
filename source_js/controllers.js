@@ -1,7 +1,7 @@
 var CHControllers = angular.module('CHControllers', ['ngCookies']);
 
-var url = 'http://localhost:4000'
-
+var url = 'http://tarekc53.cs.illinois.edu:4000'
+ 
 
 CHControllers.controller('DuesController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', function($scope, $http, $window, StudentUsers, Courses, $cookieStore) {
   $window.sessionStorage.baseurl = url;
@@ -771,6 +771,22 @@ CHControllers.controller('LoginController', ['$scope', '$http', '$window', 'Stud
         //find student user
         console.log($scope.email);
 
+        var user = {'username': $scope.email,
+                    'password': $scope.password}
+
+        $http.post(url + "/api/studentlogin", user)
+             .success(function (data, status) {
+                alert('login succeed:' + JSON.stringify(data) );
+                $cookieStore.put('role', 'student');
+                $cookieStore.put('id', data._id);
+                console.log($cookieStore.get("id"));
+                $state.go('student.dues');
+             })
+             .error(function (data) {
+                 alert('login failed');
+                 $state.go('login');
+             })
+/*
         StudentUsers.get({where: {"email": $scope.email}}).success(function(jsonData, statusCode) {
           console.log('The request for finding a student user was successful', statusCode);
           console.log(jsonData);
@@ -795,10 +811,30 @@ CHControllers.controller('LoginController', ['$scope', '$http', '$window', 'Stud
         .error(function(jsonData, statusCode) {
           console.log('find student user failed', statusCode);
         });
+       */
       }
       else {
         //find instructor user
-        InstructorUsers.get({where: {"email": $scope.email}}).success(function(jsonData, statusCode) {
+        var user = {'username': $scope.email,
+                    'password': $scope.password}
+
+        $http.post(url + "/api/instructorlogin", user)
+             .success(function (data, status) {
+                $cookieStore.put('role', 'instructor');
+                $cookieStore.put('id', data._id);
+                $cookieStore.put('name', data.name);
+                $cookieStore.put('courseList', data.courseList);
+                alert("Log in success!" +  $state.current);              
+                $state.go('instructor.main');
+             })
+             .error(function (data) {
+                 alert('login failed');
+                 $state.go('login');
+             })
+
+/*
+        InstructorUsers.get({where: {"email": $scope.email}})
+        .success(function(jsonData, statusCode) {
           console.log('The request for finding a instructor user was successful', statusCode);
           if (jsonData.data.length === 0) {
             alert("This user is not Registered!");
@@ -822,6 +858,8 @@ CHControllers.controller('LoginController', ['$scope', '$http', '$window', 'Stud
           console.log('find instructor user failed', statusCode);
           $scope.message = jsonData.message;
         });
+*/
+
       }
 
     }
