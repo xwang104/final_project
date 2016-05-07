@@ -120,7 +120,7 @@ CHControllers.controller('DuesController', ['$scope', '$http', '$window', 'Stude
 }]);
 
 CHControllers.controller('TodosController', ['$scope', '$http', '$window', 'StudentUsers', 'Courses', '$cookieStore', '$state', function($scope, $http, $window, StudentUsers, Courses, $cookieStore, $state) {
-  $window.sessionStorage.baseurl = 'http://localhost:4000'
+  $window.sessionStorage.baseurl = url;
   var role = $cookieStore.get("role");
   var id = $cookieStore.get("id");
   console.log(id);

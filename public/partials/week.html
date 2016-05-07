@@ -24,11 +24,11 @@
             <div class="row text-center">
                 <div class="small-1 columns oneday" ng-repeat="day in days">
                     {{day.date.format().substring(5, 10)}}
-                    <ul ng-if="upcommingDuesDic.hasOwnProperty(day.date.format().substring(0, 10))" class="text-left" style="padding:3px;">
+                    <ul ng-if="upcommingDuesDic.hasOwnProperty(day.date.format().substring(0, 10))" class="text-left" style="padding:3px;overflow-y:auto">
                         <li style="font-weight:800; color:#205867">Dues:</li>
                         <li ng-repeat="due in upcommingDuesDic[day.date.format().substring(0, 10)]" ng-class="courseColorList[due.courseid]" style="background:#b7dde8">{{due.courseName.split(" ")[0] + " " + due.name}} Due!</li>
                     </ul>
-                    <ul ng-if="todoDic.hasOwnProperty(day.date.format().substring(0, 10))" class="text-left" style="padding:3px;">
+                    <ul ng-if="todoDic.hasOwnProperty(day.date.format().substring(0, 10))" class="text-left" style="padding:3px;overflow-y:auto">
                         <li style="font-weight:800; color:#205867">Todos: </li>
                         <li ng-repeat="todo in todoDic[day.date.format().substring(0, 10)]" style="background:#EAEAEA">
                             <div ng-class="courseColorList[todo.courseid]">{{todo.taskName}}</div>

@@ -107,10 +107,10 @@ ul {
 .circle {
     width: 180px;
     height: 180px;
-    //@include breakpoint (medium down) {
-    //    width: 130px;
-    //    height: 130px;
-    //}
+    @include breakpoint (medium down) {
+        width: 130px;
+        height: 130px;
+    }
     cursor: pointer;
     //padding-top: 50%;
     border-radius: 50%;

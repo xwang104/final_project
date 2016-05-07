@@ -14,7 +14,7 @@
 </div>
 <div ng-repeat="week in weeks">
     <div class="small-1 columns everyday" ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-click="select(day)" ng-repeat="day in week.days" data-open="day-detail" ng-disabled="!upcommingDuesDic.hasOwnProperty(day.date.format().substring(0, 10))">{{day.number}}
-        <ul ng-if="upcommingDuesDic.hasOwnProperty(day.date.format().substring(0, 10))" class="hide-for-small-only" style="background:none">
+        <ul ng-if="upcommingDuesDic.hasOwnProperty(day.date.format().substring(0, 10))" class="hide-for-small-only" style="background:none;overflow-y:auto">
             <li ng-repeat="due in upcommingDuesDic[day.date.format().substring(0, 10)]" ng-class="courseColorList[due.courseid]">{{due.courseName.split(" ")[0] + " " + due.name}}</li>
         </ul>
         <div ng-if="upcommingDuesDic.hasOwnProperty(day.date.format().substring(0, 10))" class="show-for-small-only" style="color: red"> DUE!</div>
