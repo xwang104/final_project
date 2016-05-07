@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <ul class="small-11 medium-10 small-centered columns" id="course-info">
-            <div class="c-title">Course Infomation</div>
+            <div class="c-title" style='float:left;'>Course Infomation</div>
             <i class="fa fa-edit add" ng-click="coursePanel='edit'" data-open="course-panel"></i>
             <i class="fa fa-trash-o add" ng-click="deleteCourse()"></i>
             <li class="row clear">
@@ -21,7 +21,7 @@
 
     <div class="row" >
         <ul class="small-11 medium-10 small-centered columns" style="min-height:8em" id="course-tasks">
-            <div class="c-title">Course Tasks</div>
+            <div class="c-title" style='float:left'>Course Tasks</div>
             <i class="fa fa-plus add" ng-click="taskPanel='add'" data-open="task-panel"></i>
             <li ng-repeat="task in currentCourse.courseTaskList">
                  <div class="row clear">
@@ -45,7 +45,7 @@
 
     <div class="row">
         <ul class="small-11 medium-10 small-centered columns" id="work-load" style="overflow: hidden;padding-right:0">
-            <div class="c-title">Work Load</div>
+            <div class="c-title" style='float:left'>Work Load</div>
             <div ng-if="totalTime>0" id="piechart" style="width:120%; height: 600px;margin:0 auto"></div>
             <div ng-if="totalTime<=0" style="margin-top:5em">
               <i class="fa fa-pie-chart fa-2x" aria-hidden="true"></i>
