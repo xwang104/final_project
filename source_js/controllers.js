@@ -486,6 +486,7 @@ CHControllers.controller('InstructorController',
     $scope.totalTime = 0;
     function drawChart() {
         
+      if ($scope.currentCourse && $scope.currentCourse.courseTaskList) {
         var items = [['Task', 'Average Hours Spent']];
         var cnt = 1;
         for (var task in $scope.currentCourse.courseTaskList) {
@@ -503,6 +504,7 @@ CHControllers.controller('InstructorController',
 
           chart.draw(data, options);
         }
+      }
     }
 
 
@@ -569,6 +571,7 @@ CHControllers.controller('InstructorController',
         Courses.post(course).success(function(jsonData, statusCode) {
             console.log('course successfully added');
             $scope.courseList.push(course);
+            $scope.currentCourse = course;
           })
           .error(function(jsonData, statusCode) {
             console.log('course add error');
@@ -602,6 +605,8 @@ CHControllers.controller('InstructorController',
                     'description': $scope.taskDescription,
                     'dueDate': $scope.taskDeadline,
                     'averageTimeSpent': 0}
+        if (!$scope.currentCourse.courseTaskList)
+          $scope.currentCourse.courseTaskList = []
         $scope.currentCourse.courseTaskList.push(task);
         Courses.put($scope.currentCourse)
           .success(function(jsonData, statusCose) {
