@@ -691,6 +691,7 @@ CHControllers.controller('CourseController',
 
 
 
+    /*
     //google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
@@ -714,6 +715,7 @@ CHControllers.controller('CourseController',
     $(window).resize(function(){
       drawChart();
     });
+    */
 
 }]);
 
