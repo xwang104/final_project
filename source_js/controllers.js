@@ -481,7 +481,7 @@ CHControllers.controller('InstructorController',
    'InstructorUsers', 'Courses', '$state',
   function($scope, $http, $window, $cookieStore, 
            InstructorUsers, Courses, $state) {
-    google.charts.load('current', {'packages':['corechart']});
+    //google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
     $scope.totalTime = 0;
     function drawChart() {
@@ -569,9 +569,10 @@ CHControllers.controller('InstructorController',
                       "studentList": []}
 
         Courses.post(course).success(function(jsonData, statusCode) {
+            alert(JSON.stringify(jsonData));
             console.log('course successfully added');
             $scope.courseList.push(course);
-            $scope.currentCourse = course;
+            $scope.currentCourse = jsonData.data;
           })
           .error(function(jsonData, statusCode) {
             console.log('course add error');
@@ -690,7 +691,7 @@ CHControllers.controller('CourseController',
 
 
 
-    google.charts.load('current', {'packages':['corechart']});
+    //google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
